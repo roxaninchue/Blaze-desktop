@@ -1,0 +1,121 @@
+# Blaze Desktop builds on the TEMPORARY PUBLIC build repo. Runs only on pushes to app/desktop* (or manual dispatch).
+# Builds only: no secrets, no signing, no releases, no pages. Artifacts expire after 3 days.
+# Signing (SHA256SUMS.sig) and publishing happen outside GitHub (Blaze workspace RUNBOOK).
+name: desktop
+on:
+  push:
+    branches: ['app/desktop', 'app/desktop-*']
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: desktop-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  GO_VERSION: '1.26.10'      # GO-2026-6809 fix
+  WAILS_VERSION: v2.16.0
+
+jobs:
+  windows:
+    # Mirrors rel-desktop/build-win.sh exactly: go-winres resource + plain go build (that script makes no NSIS installer).
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: '1.26.10', cache: true, cache-dependency-path: go.sum }
+      - name: Version
+        run: echo "V=$(tr -d ' \n\r' < VERSION)" >> "$GITHUB_ENV"
+      - name: Icon + manifest resource
+        run: |
+          python3 -m pip install -q pillow
+          mkdir -p winres
+          python3 -c "from PIL import Image;Image.open('build/appicon.png').convert('RGBA').resize((256,256),Image.LANCZOS).save('winres/icon.png')"
+          cat > winres/winres.json <<J
+          {"RT_GROUP_ICON":{"APP":{"0000":["icon.png"]}},
+           "RT_MANIFEST":{"#1":{"0409":{"identity":{"name":"Blaze","version":"$V.0"},"description":"Blaze","minimum-os":"win10","execution-level":"as invoker","dpi-awareness":"per monitor v2","use-common-controls-v6":true}}},
+           "RT_VERSION":{"#1":{"0000":{"fixed":{"file_version":"$V.0","product_version":"$V.0"},"info":{"0409":{"ProductName":"Blaze","FileDescription":"Blaze","CompanyName":"Blaze","ProductVersion":"$V","FileVersion":"$V"}}}}}}
+          J
+          rm -f rsrc_windows_*.syso
+          go run github.com/tc-hib/go-winres@v0.3.3 make --in winres/winres.json --arch amd64 --out rsrc
+      - name: Build portable exe (windows/amd64)
+        run: |
+          mkdir -p dist
+          F="Blaze-v${V}-windows-amd64-portable.exe"
+          GOOS=windows GOARCH=amd64 CGO_ENABLED=0 go build -tags desktop,production -trimpath \
+            -ldflags "-H windowsgui -s -w -X main.version=v${V}" -o "dist/$F" .
+          n=$(grep -aoi ".hark." "dist/$F" | grep -vc "^rKhm$\|harKh" || true)
+          [ "$n" = "0" ] || { echo "forbidden string found $n times"; exit 4; }
+          cd dist && sha256sum * | tee SHA256SUMS.windows
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-windows
+          path: dist/*
+          retention-days: 3
+          if-no-files-found: error
+
+  linux:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: System deps
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q --no-install-recommends build-essential pkg-config \
+            libgtk-3-dev libwebkit2gtk-4.1-dev libx11-dev imagemagick file dpkg-dev
+      - uses: actions/setup-go@v5
+        with: { go-version: '1.26.10', cache: true, cache-dependency-path: go.sum }
+      - name: Version
+        run: echo "V=$(tr -d ' \n\r' < VERSION)" >> "$GITHUB_ENV"
+      - name: Install Wails CLI
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@${WAILS_VERSION}
+      - name: Build binary (linux/amd64, webkit2gtk-4.1)
+        run: |
+          wails build -platform linux/amd64 -tags webkit2_41 -s -skipbindings -trimpath -clean \
+            -ldflags "-s -w -X main.version=v${V}" -o blaze-desktop
+          file build/bin/blaze-desktop
+      # Packaging scripts live on main; the snapshot branch carries a copy (push-snapshot.sh).
+      - name: Package .deb and .tar.gz
+        run: SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)"  SRC="$PWD" bash .github/scripts/package-linux.sh build/bin/blaze-desktop "$V" dist amd64
+      - name: Check artifacts against update.go
+        run: |
+          ldd build/bin/blaze-desktop | grep -E 'gtk-3|webkit2gtk-4.1|X11'
+          SRC="$PWD" bash .github/scripts/check-linux-artifacts.sh dist "$V" amd64
+          cd dist && sha256sum * | tee ../SHA256SUMS.linux && mv ../SHA256SUMS.linux .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-linux
+          path: dist/*
+          retention-days: 3
+          if-no-files-found: error
+
+  macos:
+    runs-on: macos-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with: { go-version: '1.26.10', cache: true, cache-dependency-path: go.sum }
+      - name: Version
+        run: echo "V=$(tr -d ' \n\r' < VERSION)" >> "$GITHUB_ENV"
+      - name: Install Wails CLI
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@${WAILS_VERSION}
+      - name: Build Blaze.app (universal, unsigned)
+        run: |
+          wails build -platform darwin/universal -s -skipbindings -trimpath -clean \
+            -ldflags "-s -w -X main.version=v${V}"
+          lipo -info build/bin/Blaze.app/Contents/MacOS/Blaze
+      - name: Package unsigned .dmg
+        run: |
+          mkdir -p dist dmgroot
+          cp -R build/bin/Blaze.app dmgroot/
+          ln -s /Applications dmgroot/Applications
+          hdiutil create -volname "Blaze" -srcfolder dmgroot -fs HFS+ -format UDZO -ov "dist/Blaze-v${V}-macos-universal.dmg"
+          cd dist && shasum -a 256 *.dmg | tee SHA256SUMS.macos
+      - uses: actions/upload-artifact@v4
+        with:
+          name: desktop-macos
+          path: dist/*
+          retention-days: 3
+          if-no-files-found: error
