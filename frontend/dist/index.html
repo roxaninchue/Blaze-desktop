@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blaze</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="glass.css">
+<link rel="stylesheet" href="motion.css">
+<link rel="stylesheet" href="polish.css">
+<link rel="stylesheet" href="accounts.css">
+<link rel="stylesheet" href="memory.css">
+<link rel="stylesheet" href="composer.css">
+<link rel="stylesheet" href="notify.css">
+<link rel="stylesheet" href="agents.css">
+<link rel="stylesheet" href="specialists.css">
+<link rel="stylesheet" href="learn.css">
+<link rel="stylesheet" href="studio.css">
+<link rel="stylesheet" href="router.css">
+<link rel="stylesheet" href="link.css">
+<link rel="stylesheet" href="mind.css">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="onechat.css">
+<link rel="stylesheet" href="private.css">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="topics.css">
+<link rel="stylesheet" href="cloudmodels.css">
+<link rel="stylesheet" href="music.css">
+<link rel="stylesheet" href="video.css">
+<link rel="stylesheet" href="round.css">
+<link rel="stylesheet" href="colorwheel.css">
+<link rel="stylesheet" href="dstudio.css">
+<link rel="stylesheet" href="chat.css">
+<link rel="stylesheet" href="postkit.css">
+<link rel="stylesheet" href="csvkit.css">
+<link rel="stylesheet" href="perms.css">
+</head>
+<body>
+<div id="app">
+  <!-- v0.19: no sidebar. One infinite chat + Home | Chat | Projects tabs in the top bar (shell.js, onechat.js, home.js).
+       The badge counts the views picker reads live here, hidden. -->
+  <div id="badges" hidden><span id="ver"></span><span id="jobCount"></span><span id="connCount"></span><span id="updCount"></span></div>
+  <main id="main">
+    <header id="top" style="--wails-draggable:drag">
+      <div class="brand" title="Home"><img class="logo" src="logo.svg" alt=""><span class="bname">Blaze</span></div>
+      <div id="tabs" class="tabs">
+        <button data-tab="work" class="on"><svg class="i sm" viewBox="0 0 16 16"><path d="M5 4.5 1.5 8 5 11.5M11 4.5 14.5 8 11 11.5"/></svg>Work</button><button data-tab="design"><svg class="i sm" viewBox="0 0 16 16"><rect x="2" y="2.5" width="12" height="11"/><path d="M2 5.5h12"/></svg>Design<span id="designDot"></span></button>
+      </div>
+      <button id="folder" class="chip" title="Change folder"><svg class="i sm" viewBox="0 0 16 16"><path d="M1.5 3.5h5l1.5 1.5h6.5v8h-13z"/></svg><span id="folderName"></span></button>
+      <span class="grow"></span>
+      <button id="routerBtn" class="routerbtn" title="BlazeRouter"></button>
+      <button id="themeBtn" class="themebtn" data-w="1" title="Switch theme" aria-label="Switch theme"></button>
+      <button id="route" class="chip" title="Choose the model"><span class="dot" id="routeDot"></span><span id="routeText">No model</span><svg class="i sm caret" viewBox="0 0 16 16"><path d="m4.5 6.5 3.5 3.5 3.5-3.5"/></svg></button>
+    </header>
+    <section id="view"></section>
+  </main>
+</div>
+<script src="md.js"></script>
+<script src="bubbles.js"></script>
+<script src="steps.js"></script>
+<script src="privacy.js"></script>
+<script src="runEvents.js"></script>
+<script src="filter.js"></script>
+<script src="motion.js"></script>
+<script src="duo.js"></script>
+<script src="progress.js"></script>
+<script src="app.js"></script>
+<script src="agents.js"></script>
+<script src="specialists.js"></script>
+<script src="selfupdate.js"></script>
+<script src="theme.js"></script>
+<script src="polish.js"></script>
+<script src="pwreveal.js"></script>
+<script src="stream.js"></script>
+<script src="pills.js"></script>
+<script src="about.js"></script>
+<script src="edge.js"></script>
+<script src="brand.js"></script>
+<script src="connectors.js"></script>
+<script src="accounts.js"></script>
+<script src="account.js"></script>
+<script src="cloudsync.js"></script>
+<script src="specialties.js"></script>
+<script src="whathappened.js"></script>
+<script src="usage.js"></script>
+<script src="writing.js"></script>
+<script src="onboard.js"></script>
+<script src="perms.js"></script>
+<script src="memory.js"></script>
+<script src="composer.js"></script>
+<script src="notify.js"></script>
+<script src="learn.js"></script>
+<script src="studio.js"></script>
+<script src="artboard.js"></script>
+<script src="colorwheel.js"></script>
+<script src="dstudio.js"></script>
+<script src="router.js"></script>
+<script src="link.js"></script>
+<script src="mind.js"></script>
+<script src="views.js"></script>
+<script src="postkit.js"></script>
+<script src="csvkit.js"></script>
+<script src="home.js"></script>
+<script src="onechat.js"></script>
+<script src="shell.js"></script>
+<script src="topics.js"></script>
+<script src="cloudmodels.js"></script>
+<script src="private.js"></script>
+<script src="media-logic.js"></script>
+<script src="media-store.js"></script>
+<script src="music.js"></script>
+<script src="video.js"></script>
+</body>
+</html>

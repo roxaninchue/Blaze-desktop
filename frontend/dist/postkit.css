@@ -1,0 +1,41 @@
+/* Post kit (v0.19.11, postkit.js) */
+.pk-start { display: grid; gap: 12px; }
+.pk-photo { border-radius: var(--r-sm, 12px); display: flex; align-items: center; gap: 12px; min-height: 64px; padding: 10px 12px; border: 1px dashed var(--hair2); color: var(--sub); font-size: 13px; }
+.pk-photo.over { border-color: var(--accent); background: var(--accent-soft); }
+.pk-photo.has { border-style: solid; }
+.pk-photo img { width: 56px; height: 56px; object-fit: cover; border-radius: var(--r-xs, 8px); }
+.pk-pmeta { display: grid; gap: 2px; flex: 1; min-width: 0; }
+.pk-pmeta b { color: var(--ink); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pk-pmeta span { font: 11px var(--mono); }
+.pk-drop { flex: 0 1 auto; }
+.pk-plats { display: flex; flex-wrap: wrap; gap: 6px; }
+.pk-plat { height: 30px; padding: 0 12px; border: 1px solid var(--hair2); background: var(--raised); color: var(--sub); font-size: 12.5px; border-radius: var(--r-pill, 999px); }
+.pk-plat:hover { color: var(--ink); border-color: var(--ink); }
+.pk-plat.on { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+.pk-go { display: flex; gap: 8px; align-items: center; }
+.pk-lang { max-width: 200px; }
+.pk-make { margin-left: auto; }
+.pk-make:disabled { opacity: .5; cursor: default; }
+.pk-err { color: var(--danger, #d0453a); font-size: 12.5px; line-height: 1.5; }
+.pk-note { color: var(--sub); }
+.pk-acts { display: inline-flex; gap: 6px; margin-left: auto; }
+.pk-top { display: grid; gap: 14px; margin-bottom: 12px; }
+.pk-fh, .pk-ch { display: flex; align-items: center; gap: 8px; }
+.pk-fh .pk-copy, .pk-ch .pk-copy { margin-left: auto; }
+.pk-count { font: 11px var(--mono); color: var(--sub); }
+.pk-count.over { color: var(--danger, #d0453a); }
+.pk-val { margin-top: 4px; color: var(--ink); font-size: 14px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.pk-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-bottom: 12px; }
+.pk-card { padding: 12px 14px; display: grid; gap: 8px; align-content: start; }
+.pk-ch b { color: var(--ink); font-weight: 600; font-size: 13px; }
+.pk-title { color: var(--ink); font-weight: 600; font-size: 13.5px; line-height: 1.4; }
+.pk-cap, .pk-desc { color: var(--ink); font-size: 13px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+.pk-desc { border-top: 1px solid var(--hair); padding-top: 8px; color: var(--sub); }
+.pk-desc .label { display: block; margin-bottom: 4px; }
+.pk-frames { display: flex; gap: 14px; align-items: flex-end; flex-wrap: wrap; margin-top: 10px; }
+.pk-frame { display: grid; gap: 6px; justify-items: center; }
+.pk-fv { border-radius: var(--r-sm, 12px); position: relative; height: 140px; overflow: hidden; border: 1px solid var(--hair2); background: repeating-linear-gradient(45deg, var(--faint2, rgba(127,127,127,.08)) 0 6px, transparent 6px 12px); }
+.pk-fv img { position: absolute; max-width: none; height: auto; }
+.pk-fl { font: 11px var(--mono); color: var(--sub); }
+.pk-saved { margin-top: 10px; font-size: 12.5px; color: var(--sub); overflow-wrap: anywhere; }
+.pk-saved.bad { color: var(--danger, #d0453a); }

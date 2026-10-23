@@ -1,0 +1,57 @@
+{
+ "passphrase": "correct horse battery staple",
+ "salt": "AAECAwQFBgcICQoLDA0ODw==",
+ "kdf": "pbkdf2-sha256:600000",
+ "key_hex": "ef177144eec9420cbc1093d2a8b344a92bc506d0d4ec9c028dd19f8324d8c1e6",
+ "vectors": [
+  {
+   "name": "memory",
+   "kind": "memory",
+   "id": "mc8226c78a007e648e5aca5b0eb815fba",
+   "plain": "{\"v\":1,\"kind\":\"memory\",\"id\":\"mc8226c78a007e648e5aca5b0eb815fba\",\"t\":1761130000123,\"data\":{\"kind\":\"profile\",\"subject\":\"home\",\"text\":\"Lives in São Paulo; works at 9:00!\",\"related\":\"work, travel\"}}",
+   "blob": "AQEBAQEBAQEBAQEB//SgNp29Ia0EwCS+2/P/bBShJ6aJVAPTe0lhgkGGH+ps2SmvJqJ3LWZu7s1k8JA2/KFf1mvnMPFRFKGnlgy9PhkJ7f1P6+Zi/+xxPksSkc/rAkTPdGxdcJ6/Nke1i0FIaKX+LdiKCMxKbxkrBlWcNz6VOj9Zxuw728t1ke9QWtD1e53NKRdPiVymraXipspzH/c80+F8dXSFmDCqnXWFuz3LznMD1na8aQD+L7ywjzaX6b51G9ZRn9jk5Xv4598xSw=="
+  },
+  {
+   "name": "memory_tombstone",
+   "kind": "memory",
+   "id": "mb5bc1e5b6f214417ccf0b4d5122c20c0",
+   "plain": "{\"v\":1,\"kind\":\"memory\",\"id\":\"mb5bc1e5b6f214417ccf0b4d5122c20c0\",\"t\":1761130000999,\"del\":true}",
+   "blob": "AgICAgICAgICAgIC1XlhuO/DdzVxKs1iMOquWqsOuAbhrm5yO8t2Mc+IYKrDf8Cj9Wk0Y12T0wO5ppTnhwIGUyvzwduLgwuc19VDEmg5GjCNdX7wI0h4A4NOVqY/NxOeHHwFYeGDYYtcJrPxwtQpLWiBIotvUt2myxLGEnMiPAni"
+  },
+  {
+   "name": "msg_user",
+   "kind": "msg",
+   "id": "main:k3x9a0b1-lz8q4k2m1",
+   "plain": "{\"v\":1,\"kind\":\"msg\",\"id\":\"main:k3x9a0b1-lz8q4k2m1\",\"t\":1761130001000,\"data\":{\"at\":1761130001000,\"gid\":\"k3x9a0b1-lz8q4k2m1\",\"role\":\"USER\",\"text\":\"Remind me: the dentist is on Friday \\/ 10:00 \\\"sharp\\\"\"}}",
+   "blob": "AwMDAwMDAwMDAwMDf7En4wKXzSMrbrMghQBRfqwCIAnWJBK6uEQ1GkFDlnCkiE3+TDjahza9Hs5sWw7haiFt/K8QbugVxkpzcNOXUUVHgkx17uiWJA2YFyewNqZDSa/HF47S1zSOPEkBAYRZSuHXJkdlcwz3FTOPMKme/LmdFdPWnhUfUAYkVgKIkG/DIBzJg5X/EvWwcBNXcVs73PlRSlCEjEldcR6MGsqMaj/Je6cFuHVkjNGdLyWuFfCvPw=="
+  },
+  {
+   "name": "msg_blaze",
+   "kind": "msg",
+   "id": "main:k3x9a0b1-lz8q4k2m2",
+   "plain": "{\"v\":1,\"kind\":\"msg\",\"id\":\"main:k3x9a0b1-lz8q4k2m2\",\"t\":1761130002000,\"data\":{\"at\":1761130002000,\"files\":[\"a.pdf\"],\"gid\":\"k3x9a0b1-lz8q4k2m2\",\"role\":\"BLAZE\",\"text\":\"Noted ✓ — Friday 10:00.\\nAnything else?\"}}",
+   "blob": "BAQEBAQEBAQEBAQEN48HDh4o7iXSkCtyeNUsIGWq0bnmAV90WQ1XtUPFXjxGwWw2qTKs/3ZgL3XVEejyWEuKXxqnZq5GCAuX5LYep238wFmu4toW2ecm1UWBAceOqNS+23b0yQX+lygQI4pB5VuRSldF+LbTp+MXy1ZgiBmOZAXyWf0Dxllr9IToHSQzOgwKgTH3CHZwKDsqSH4fOLC98Cy7MrzBx9J1NQtn9QnG6mo+f2apS1gSDWdXTZmWdkD/g178CX3gF5BrRiVF22b1kw=="
+  },
+  {
+   "name": "chat_head",
+   "kind": "chat",
+   "id": "main",
+   "plain": "{\"v\":1,\"kind\":\"chat\",\"id\":\"main\",\"t\":1761130002000,\"data\":{\"id\":\"main\",\"title\":\"Chat\",\"updated\":1761130002000,\"messages\":[],\"split\":1}}",
+   "blob": "BQUFBQUFBQUFBQUF0xkYF5XeyNINFh7x6Pjs1jqKJyXQZwl/izLviIBVlQWHTopOVbTURa82kjabA6or8TU/T+7cZf5WkT8QB5ZyoYOCvKzY2xO8LTipqNtc+Nrk2KCiGnzkDuXJNiwBHghF2QbCPOxTR5AfOuP9rY42GeMZ4SQIbgrjIfKW/XO8Dr8mMQ=="
+  },
+  {
+   "name": "chat_tombstone",
+   "kind": "chat",
+   "id": "c-old",
+   "plain": "{\"v\":1,\"kind\":\"chat\",\"id\":\"c-old\",\"t\":1761130003000,\"del\":true}",
+   "blob": "BgYGBgYGBgYGBgYGIdf8E4SbvPONmsiMZZrFZZ0MXdkyihqvo9fYZ7L+C9f4NzB/1WFlWwSWWGP0JdHqzDqgJA4kF0Vya9Ydsls+3HHsQd37UxKeOhwSst7GzffJflZqxB/TycRIQA=="
+  },
+  {
+   "name": "check",
+   "kind": "_check",
+   "id": "v1",
+   "plain": "blaze-sync-check-v1",
+   "blob": "BwcHBwcHBwcHBwcHcFeb/7kdoCPGF4XHo2Q6VrsQTwDODrcC6yWqG2PIqP3vdOpWpJPgYP1ehua7PCI5++HKdARcsA=="
+  }
+ ]
+}

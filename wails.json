@@ -1,0 +1,20 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "Blaze",
+  "outputfilename": "Blaze",
+  "frontend:install": "",
+  "frontend:build": "",
+  "frontend:dir": "frontend",
+  "wailsjsdir": "",
+  "author": { "name": "Blazeinchue", "email": "" },
+  "info": {
+    "companyName": "Blazeinchue",
+    "productName": "Blaze",
+    "productVersion": "0.19.17",
+    "copyright": "© 2026 Blazeinchue",
+    "comments": "Blaze for your computer",
+    "protocols": [
+      { "scheme": "blaze", "description": "Blaze sign-in links", "role": "Viewer" }
+    ]
+  }
+}

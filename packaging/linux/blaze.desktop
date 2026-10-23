@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Blaze
+Comment=Blaze assistant for your computer
+Exec=blaze-desktop %u
+Icon=blaze
+Terminal=false
+Type=Application
+Categories=Utility;Development;
+StartupWMClass=blaze
+MimeType=x-scheme-handler/blaze;

@@ -1,0 +1,201 @@
+<!doctype html>
+<!--
+  Blaze 3D mockup starter (three-d-design skill).
+  Copy this file, rename it (design/<thing>-3d.html), set the title, then describe the object
+  in the blaze-parts JSON below. The scene is built from that JSON, so the Design tab can pick a
+  part, show its numbers, and write colour, size, position and rotation back to it exactly.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D mockup</title>
+<style>
+  /* Full-window canvas with a small blueprint panel on top. */
+  html, body { margin: 0; height: 100%; background: #f3f2ef; font: 13px/1.4 system-ui, sans-serif; color: #1d1d1f; }
+  canvas { display: block; width: 100%; height: 100%; }
+  #panel { position: fixed; left: 12px; top: 12px; max-width: 300px; background: rgba(255,255,255,.92); border: 1px solid #ddd; border-radius: 10px; padding: 10px 12px; }
+  #panel h1 { font-size: 14px; margin: 0 0 6px; }
+  #panel table { border-collapse: collapse; width: 100%; font-size: 12px; }
+  #panel td { padding: 2px 4px; border-top: 1px solid #eee; white-space: nowrap; }
+  #panel td:last-child { text-align: right; font-variant-numeric: tabular-nums; color: #555; }
+  #panel button { margin-top: 8px; font: inherit; padding: 4px 10px; border: 1px solid #bbb; border-radius: 6px; background: #fff; cursor: pointer; }
+  @media (prefers-color-scheme: dark) { html, body { background: #17181a; color: #eee; } #panel { background: rgba(30,30,32,.92); border-color: #333; } #panel td { border-color: #333; } #panel td:last-child { color: #aaa; } #panel button { background: #222; color: #eee; border-color: #444; } }
+</style>
+</head>
+<body>
+<div id="panel"><h1 id="name"></h1><table id="bom"></table><button id="glb" type="button">Download .glb</button></div>
+
+<!--
+  THE PARTS: the single source of truth for the mockup.
+  - units: what every number means ("mm" by default). scale: scene units per unit (0.001 = mm to metres).
+  - nudge: how far one arrow-key press moves a part in Design.
+  - Each part: id (kebab-case, unique), label, shape, its dimensions, position (the centre of the
+    part, relative to its parent), rotation in degrees [x, y, z], color, and optional
+    material ("matte" | "wood" | "metal" | "plastic" | "glass"), parent, scale, visible.
+  - Shapes and their dimensions: box size [w, h, d]; cylinder radius, height (radiusTop optional);
+    cone radius, height; sphere radius; torus radius, tube; capsule radius, height; plane size [w, d];
+    group (no geometry, holds children); custom (built in CUSTOM below, same id).
+-->
+<script type="application/json" id="blaze-parts">
+{
+  "name": "Example stool",
+  "units": "mm",
+  "scale": 0.001,
+  "nudge": 10,
+  "parts": [
+    { "id": "seat", "label": "Seat", "shape": "cylinder", "radius": 180, "height": 30, "position": [0, 450, 0], "color": "#b07a4f", "material": "wood" },
+    { "id": "legs", "label": "Legs", "shape": "group", "position": [0, 0, 0] },
+    { "id": "leg-1", "label": "Leg 1", "parent": "legs", "shape": "cylinder", "radius": 14, "radiusTop": 16, "height": 435, "position": [120, 217.5, 0], "rotation": [0, 0, 4], "color": "#2f2f33", "material": "metal" },
+    { "id": "leg-2", "label": "Leg 2", "parent": "legs", "shape": "cylinder", "radius": 14, "radiusTop": 16, "height": 435, "position": [-60, 217.5, 104], "rotation": [-3.5, 0, -2], "color": "#2f2f33", "material": "metal" },
+    { "id": "leg-3", "label": "Leg 3", "parent": "legs", "shape": "cylinder", "radius": 14, "radiusTop": 16, "height": 435, "position": [-60, 217.5, -104], "rotation": [3.5, 0, -2], "color": "#2f2f33", "material": "metal" },
+    { "id": "footrest", "label": "Footrest ring", "shape": "torus", "radius": 125, "tube": 8, "position": [0, 160, 0], "rotation": [90, 0, 0], "color": "#2f2f33", "material": "metal" }
+  ]
+}
+</script>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFExporter } from "three/addons/exporters/GLTFExporter.js";
+
+// ---- 1. Read the parts -------------------------------------------------------------------
+// Everything below is driven by this object; change the JSON, not the code, to change a part.
+const spec = JSON.parse(document.getElementById("blaze-parts").textContent);
+const U = spec.scale ?? 0.001;          // scene units per mockup unit
+const deg = d => (d || 0) * Math.PI / 180;
+document.title = spec.name || document.title;
+document.getElementById("name").textContent = spec.name || "Mockup";
+
+// ---- 2. Renderer, scene, camera, controls --------------------------------------------------
+// Soft studio look: tone-mapped renderer, light background, orbit with damping.
+const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.shadowMap.enabled = true;
+document.body.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(matchMedia("(prefers-color-scheme: dark)").matches ? 0x17181a : 0xf3f2ef);
+const camera = new THREE.PerspectiveCamera(40, 1, 0.01, 200);
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
+// ---- 3. Lights and floor -----------------------------------------------------------------
+// A sky/ground fill plus one key light that casts shadows onto a quiet floor and grid.
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8577, 1.1));
+const key = new THREE.DirectionalLight(0xffffff, 2.2);
+key.position.set(2, 4, 3); key.castShadow = true; key.shadow.mapSize.set(2048, 2048);
+scene.add(key);
+const floor = new THREE.Mesh(new THREE.PlaneGeometry(20, 20), new THREE.ShadowMaterial({ opacity: 0.18 }));
+floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+const grid = new THREE.GridHelper(4, 40, 0x999999, 0xdddddd); grid.material.transparent = true; grid.material.opacity = 0.35; scene.add(grid);
+
+// ---- 4. Materials ------------------------------------------------------------------------
+// A small preset per material name; color always comes from the part.
+const PRESET = { matte: { roughness: 0.9, metalness: 0 }, wood: { roughness: 0.75, metalness: 0 }, metal: { roughness: 0.35, metalness: 0.9 },
+  plastic: { roughness: 0.45, metalness: 0 }, glass: { roughness: 0.05, metalness: 0, transparent: true, opacity: 0.35 } };
+function material(p) {
+  const m = new THREE.MeshStandardMaterial({ color: p.color || "#cccccc", ...(PRESET[p.material] || PRESET.matte) });
+  if (p.opacity != null) { m.transparent = true; m.opacity = p.opacity; }
+  if (p.roughness != null) m.roughness = p.roughness;
+  if (p.metalness != null) m.metalness = p.metalness;
+  return m;
+}
+
+// ---- 5. Geometry per shape ---------------------------------------------------------------
+// Dimensions are in mockup units; the part's root is scaled by U, so geometry stays in units.
+function geometry(p) {
+  switch (p.shape) {
+    case "box": { const [w, h, d] = p.size || [100, 100, 100]; return new THREE.BoxGeometry(w, h, d); }
+    case "cylinder": return new THREE.CylinderGeometry(p.radiusTop ?? p.radius ?? 50, p.radius ?? 50, p.height ?? 100, 48);
+    case "cone": return new THREE.ConeGeometry(p.radius ?? 50, p.height ?? 100, 48);
+    case "sphere": return new THREE.SphereGeometry(p.radius ?? 50, 48, 32);
+    case "torus": return new THREE.TorusGeometry(p.radius ?? 50, p.tube ?? 10, 24, 96);
+    case "capsule": return new THREE.CapsuleGeometry(p.radius ?? 25, p.height ?? 100, 8, 24);
+    case "plane": { const [w, d] = p.size || [100, 100]; return new THREE.PlaneGeometry(w, d).rotateX(-Math.PI / 2); }
+  }
+  return null;
+}
+
+// ---- 6. Custom parts ---------------------------------------------------------------------
+// For shapes the presets can't express (a curved backrest, a handle profile): one builder per
+// part id, returning an Object3D in mockup units. Keep its dimensions in the part's JSON entry.
+const CUSTOM = {
+  // "backrest": p => new THREE.Mesh(new THREE.ExtrudeGeometry(profile(p), { depth: p.depth }), material(p)),
+};
+
+// ---- 7. Build the scene from the parts ----------------------------------------------------
+// Each part gets a root Object3D tagged userData.part = id: that is what Design picks and edits.
+const parts = new Map();
+function build(p) {
+  let obj;
+  if (p.shape === "group") obj = new THREE.Group();
+  else if (p.shape === "custom") obj = CUSTOM[p.id] ? CUSTOM[p.id](p) : new THREE.Group();
+  else { obj = new THREE.Mesh(geometry(p), material(p)); obj.castShadow = obj.receiveShadow = true; }
+  const root = new THREE.Group();     // root holds position/rotation/scale; children hold geometry
+  root.add(obj);
+  root.name = p.label || p.id;
+  root.userData = { part: p.id, label: p.label || p.id };
+  const [x, y, z] = p.position || [0, 0, 0];
+  root.position.set(x, y, z);
+  const [rx, ry, rz] = p.rotation || [0, 0, 0];
+  root.rotation.set(deg(rx), deg(ry), deg(rz));
+  const [sx, sy, sz] = p.scale || [1, 1, 1];
+  root.scale.set(sx, sy, sz);
+  root.visible = p.visible !== false;
+  parts.set(p.id, root);
+  return root;
+}
+const model = new THREE.Group();
+model.scale.setScalar(U);               // mockup units -> scene units
+scene.add(model);
+spec.parts.forEach(build);
+spec.parts.forEach(p => (parts.get(p.parent) || model).add(parts.get(p.id)));
+// Part roots sit in mockup units inside `model`, so a JSON position is the root's position
+// relative to its parent, and Design's arrow-key nudges move it by exactly spec.nudge units.
+model.updateMatrixWorld(true);
+
+// ---- 8. Blueprint panel ------------------------------------------------------------------
+// The parts list with each part's main dimension, read from the same JSON.
+function dims(p) {
+  if (p.size) return p.size.join(" × ");
+  if (p.radius != null && p.height != null) return `⌀${p.radius * 2} × ${p.height}`;
+  if (p.radius != null && p.tube != null) return `⌀${p.radius * 2} / ${p.tube * 2}`;
+  if (p.radius != null) return `⌀${p.radius * 2}`;
+  return "";
+}
+document.getElementById("bom").innerHTML = spec.parts.filter(p => p.shape !== "group")
+  .map(p => `<tr><td>${p.label || p.id}</td><td>${dims(p)} ${dims(p) ? spec.units : ""}</td></tr>`).join("");
+
+// ---- 9. Frame the camera on the model ----------------------------------------------------
+const box = new THREE.Box3().setFromObject(model), size = box.getSize(new THREE.Vector3()), mid = box.getCenter(new THREE.Vector3());
+const r = Math.max(size.x, size.y, size.z) || 1;
+camera.position.set(mid.x + r * 1.6, mid.y + r * 1.1, mid.z + r * 1.9);
+controls.target.copy(mid); controls.update();
+
+// ---- 10. Export for other software -------------------------------------------------------
+// A .glb of the model (in metres) that Blender, Unity, SketchUp and most CAD tools import.
+document.getElementById("glb").onclick = () => new GLTFExporter().parse(model, glb => {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([glb], { type: "model/gltf-binary" }));
+  a.download = (spec.name || "mockup").toLowerCase().replace(/[^a-z0-9]+/g, "-") + ".glb"; a.click();
+}, console.error, { binary: true });
+
+// ---- 11. Resize and render loop ----------------------------------------------------------
+function resize() { renderer.setSize(innerWidth, innerHeight, false); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); }
+addEventListener("resize", resize); resize();
+renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); });
+
+// ---- 12. Hand the scene to Blaze's Design tab ---------------------------------------------
+// Design raycasts clicks with these to pick parts and reads each part's numbers from spec.
+window.__blazeScene = { THREE, scene, camera, renderer, controls, parts, spec };
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+/* v0.19 Blaze Cloud + Custom models (cloudmodels.js). Uses the glass tokens; radii from round.css's scale. */
+.cmlead { margin-bottom: 20px; }
+.cmchoice > button { border-radius: var(--r-card); align-items: flex-start; }
+.cmchoice .ct { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.cmchoice .ct .i { color: var(--accent); }
+.cmchoice .pill { margin-left: 2px; }
+.cmstatus { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 10px 14px; border: 1px solid var(--hair2); background: var(--faint); border-radius: var(--r-md); font-size: 12.5px; color: var(--body); }
+.cmstatus.ok { border-color: transparent; background: var(--accent-soft); color: var(--ink); }
+.cmstatus .t { min-width: 0; }
+.cmnote { margin-top: 12px; }
+.cmcur { color: var(--sub); }
+.cmtask { display: grid; grid-template-columns: minmax(150px, 1fr) minmax(0, 2fr); gap: 6px 14px; align-items: center; padding: 10px 0; border-top: 1px solid var(--hair); }
+.cmtask:first-of-type { border-top: 0; }
+.cmtask .cmt { display: flex; flex-direction: column; gap: 2px; }
+.cmtask .tt { font-weight: 600; color: var(--ink); font-size: 13px; }
+.cmtask .td { color: var(--sub); font-size: 12px; }
+.cmpick { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 8px; }
+.cmpick select { min-width: 0; }
+.cmmsg { grid-column: 2; color: var(--sub); }
+.cmmsg:empty { display: none; }
+.cmmsg.bad { color: var(--bad, var(--accent)); }
+.cmfallback { margin-top: 2px; }
+.pop .cmopt .pill { margin-left: 6px; }
+.pop .grp.cmgrp { margin-top: 6px; padding: 8px 12px 4px; font: 500 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--sub); }

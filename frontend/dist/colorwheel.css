@@ -1,0 +1,42 @@
+/* v0.20 Design studio: the colour wheel (colorwheel.js) */
+.cw { display: flex; flex-direction: column; gap: 10px; }
+.cw [hidden] { display: none !important; }
+.cw-top { display: flex; gap: 14px; align-items: flex-start; }
+.cw-wheel { position: relative; flex: none; touch-action: none; }
+.cw-wheel canvas { display: block; border-radius: 50%; cursor: crosshair; box-shadow: 0 0 0 1px var(--hair2); }
+.cw-knob { position: absolute; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.4); pointer-events: none; }
+.cw-side { flex: 1; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.cw-prev { height: 40px; border-radius: var(--r-sm); border: 1px solid var(--hair2); background: repeating-conic-gradient(#999 0 25%, #ddd 0 50%) 0 0/10px 10px; overflow: hidden; }
+.cw-prev i { display: block; height: 100%; }
+.cw-hexl { display: flex; align-items: center; gap: 6px; height: 32px; border: 1px solid var(--hair2); border-radius: var(--r-xs); padding: 0 8px; font: 500 10px var(--mono); color: var(--weak); background: var(--raised); }
+.cw-hexl:focus-within { border-color: var(--ink); }
+.cw-hex { flex: 1; min-width: 0; background: none; border: 0; outline: 0; font: 500 12.5px var(--mono); color: var(--ink); text-transform: uppercase; }
+.cw-sys { display: flex; align-items: center; gap: 7px; height: 30px; border-radius: var(--r-xs); padding: 0 8px; border: 1px solid var(--hair); font-size: 12px; color: var(--sub); cursor: pointer; }
+.cw-sys:hover { color: var(--ink); border-color: var(--hair2); }
+.cw-sys input { width: 18px; height: 18px; border: 0; padding: 0; background: none; cursor: pointer; }
+.cw-sys input::-webkit-color-swatch-wrapper { padding: 0; }
+.cw-sys input::-webkit-color-swatch { border: 1px solid var(--hair2); border-radius: 50%; }
+.cw-sl { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--sub); }
+.cw-sl span { width: 64px; flex: none; }
+.cw-sl input { flex: 1; -webkit-appearance: none; appearance: none; height: 10px; border-radius: 6px; outline: 0; border: 1px solid var(--hair); }
+.cw-sl input::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.3), 0 1px 4px rgba(0,0,0,.4); }
+.cw-sw, .cw-recent { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.cw-sw:empty, .cw-recent:empty { display: none; }
+.cw-sw button, .cw-recent button { width: 22px; height: 22px; border-radius: 7px; border: 1px solid var(--hair2); cursor: pointer; padding: 0; }
+.cw-sw button:hover, .cw-recent button:hover { transform: scale(1.08); }
+.cw-recent span, .cw-sw span { font-size: 11px; color: var(--weak); margin-right: 2px; }
+.cw-sw span.gap { margin-left: 6px; }
+
+.cwpop { position: fixed; z-index: 1000; width: 316px; padding: 14px; border-radius: var(--r-md); background: var(--chrome); border: 1px solid var(--hair2); box-shadow: var(--shadow-lg); backdrop-filter: blur(22px) saturate(1.2); -webkit-backdrop-filter: blur(22px) saturate(1.2); }
+:root[data-theme=dark] .cwpop { background: rgba(22,22,26,.94); }
+.cwpop-hd { font: 600 11px var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--weak); margin: -2px 0 10px; }
+
+.cwf { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.cwf-l { width: 64px; flex: none; font-size: 12px; color: var(--sub); }
+.cwf-sw { flex: none; width: 26px; height: 26px; padding: 3px; border-radius: 8px; border: 1px solid var(--hair2); background: repeating-conic-gradient(#999 0 25%, #ddd 0 50%) 0 0/8px 8px; cursor: pointer; }
+.cwf-sw i { display: block; width: 100%; height: 100%; border-radius: 5px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+.cwf-sw:hover { border-color: var(--ink); }
+.cwf-hex { flex: 1; min-width: 0; height: 28px; padding: 0 8px; border-radius: var(--r-xs); border: 1px solid var(--hair2); background: var(--raised); color: var(--ink); font: 500 12px var(--mono); text-transform: uppercase; outline: 0; }
+.cwf-hex:focus { border-color: var(--ink); }
+input[type=color].cw-native { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.cwf-sw.cwup { width: 26px; height: 22px; padding: 2px; border-radius: 6px; }

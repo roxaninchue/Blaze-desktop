@@ -1,0 +1,19 @@
+/* v0.19 topic chip above the composer (topics.js). Quiet: mono label, hairline, glass. */
+.topicrow { position: relative; display: none; justify-content: flex-start; margin: 0 6px 6px; }
+.topicrow.show { display: flex; }
+.topicchip { display: inline-flex; align-items: center; gap: 7px; height: 24px; max-width: 60%; padding: 0 10px; border: 1px solid var(--hair); border-radius: var(--r-pill); background: var(--faint); color: var(--sub); font: 11px/1 var(--mono); cursor: pointer; backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); transition: color .16s, border-color .16s, background .16s; }
+.topicchip:hover, .topicchip.on { color: var(--ink); border-color: var(--hair2); background: var(--faint2); }
+.topicchip .tk { text-transform: uppercase; letter-spacing: .12em; font-size: 9.5px; color: var(--weak); }
+.topicchip .tt { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; min-width: 0; }
+.topicchip .tn { color: var(--weak); }
+.topicchip .tn:empty { display: none; }
+.topicpop { position: absolute; left: 0; bottom: calc(100% + 6px); z-index: 40; min-width: 240px; max-width: 360px; max-height: 300px; overflow: auto; padding: 6px; border: 1px solid var(--hair); border-radius: var(--r-md); background: var(--paper); box-shadow: var(--shadow-lg, 0 12px 40px rgba(0,0,0,.28)); }
+.topicpop[hidden] { display: none; }
+.topicpop .th { padding: 6px 8px 8px; font: 9.5px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--weak); }
+.topicpop .topt { display: grid; grid-template-columns: 10px 1fr auto; align-items: center; gap: 8px; width: 100%; padding: 8px; border: 0; border-radius: var(--r-sm); background: none; color: var(--body); font: 13px var(--sans, inherit); text-align: left; cursor: pointer; }
+.topicpop .topt:hover { background: var(--faint2); color: var(--ink); }
+.topicpop .topt .d { width: 6px; height: 6px; border-radius: 50%; background: var(--hair2); }
+.topicpop .topt.cur .d { background: var(--accent); }
+.topicpop .topt .n { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.topicpop .topt .c { font: 11px var(--mono); color: var(--weak); }
+@media (prefers-reduced-motion: reduce) { .topicchip { transition: none; } }

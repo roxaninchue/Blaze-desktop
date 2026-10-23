@@ -1,0 +1,8 @@
+build/bin/
+shots/
+/Blaze*
+# Generated Wails JS bindings (wails dev/build writes them; never edit by hand)
+frontend/wailsjs/
+# Local launcher scripts
+run-local.sh
+# frontend/dist is NOT ignored: it is the hand-written frontend source (no build step).

@@ -1,0 +1,104 @@
+/* v0.4.2 polish: AI chat titles + mini particle-orb marks (polish.js) */
+
+/* ---- chat titles ---- */
+.chat .t { transition: opacity .2s ease, filter .2s ease; }
+.chat .t.tfade { opacity: 0; filter: blur(2px); }
+.chat.editing { background: var(--raised); box-shadow: inset 0 0 0 1px var(--accent); }
+.chat .rename { flex: 1; min-width: 0; height: 22px; padding: 0 6px; border: 0; outline: 0; background: transparent; color: var(--ink); font: inherit; }
+.chat.editing .when, .chat.editing .x { display: none !important; }
+
+/* ---- mini orbs replace the small square marks ---- */
+
+/* ---- personality (Settings › Behaviour) ---- */
+.pbox { margin-top: 10px; }
+.pbox .pnote { color: var(--sub); font-size: 12.5px; }
+.pcustom { min-height: 180px; font: 12.5px/1.55 var(--mono); }
+
+/* v0.18.1 ThinkingOrb marks: a small emblem (duo.js) replaces each square mark. The emblem is a little larger than
+   its slot (the halo's glow) and overflows it without moving the layout. */
+blaze-emblem.morb { display: block; flex: none; pointer-events: none; }
+.has-orb { position: relative; display: inline-grid !important; place-items: center; background: none !important; border: 0 !important; animation: none !important; overflow: visible; }
+.has-orb > blaze-emblem.morb { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.msg.blaze .who .mk.has-orb { width: 14px; height: 14px; }
+.msg.blaze .work .sq.has-orb { width: 12px; height: 12px; }
+.msg.blaze .work.done .sq.has-orb .morb { opacity: .75; transition: opacity .15s; }
+.msg.blaze .work.done:hover .sq.has-orb .morb { opacity: 1; }
+.thinking .sq.has-orb { width: 16px; height: 16px; }
+.acard .amk.has-orb { width: 10px; height: 10px; }
+.step .st.has-orb::before { display: none; }
+.step.bad .st.has-orb::before { display: block; }
+.step.bad .st .morb { display: none; }
+.step:not(.run):not(.bad) .st .morb { opacity: .8; }
+.sprow .sp-mk.has-orb { width: 12px; height: 12px; }
+
+/* v0.18.1 StreamOrb + duoShimmer overlays (stream.js): drawn over the reply, never in its layout. */
+.msg.blaze { position: relative; }
+.msg.blaze > .sdrop, .msg.blaze > .sshim { position: absolute; left: 0; top: 0; pointer-events: none; transform-origin: 0 0; }
+.msg.blaze > .sdrop { will-change: transform; }
+
+
+/* v0.18.1 EdgeParticles (edge.js): the body is the stacking context, so the particle canvas at z-index -1 paints
+   above the page ground but behind everything in #app. #app gets no z-index or isolation of its own: the stream
+   shimmer blends with the text through it (mix-blend-mode needs the shared stacking context). */
+body { position: relative; z-index: 0; }
+#edge-particles { transition: none; }
+
+/* "Update available" pill (v0.19.3) */
+.updpill { gap: 6px; color: var(--ink); }
+.updpill .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--acc, #ff7a1a); box-shadow: 0 0 0 3px color-mix(in srgb, var(--acc, #ff7a1a) 25%, transparent); }
+
+/* Show / hide eye on password fields (v0.19.7) */
+.pwbox { position: relative; display: block; flex: 1 1 auto; min-width: 0; }
+.pwbox > input { width: 100%; padding-right: 34px; box-sizing: border-box; }
+.pweye { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 26px; height: 26px; display: grid; place-items: center; border: 0; background: transparent; color: var(--sub); cursor: pointer; border-radius: 50%; padding: 0; }
+.pweye:hover, .pweye:focus-visible { color: var(--ink); background: var(--faint2); }
+
+/* "What happened" under a reply (v0.19.7) */
+.wh { margin-top: 4px; }
+.wh-btn { color: var(--weak); }
+.wh-btn.on, .wh-btn:hover { color: var(--ink); }
+.wh-pan { margin-top: 6px; padding: 10px 12px; border: 1px solid var(--hair); border-radius: var(--r-md, 12px); background: var(--sunk); font-size: 12px; color: var(--body); overflow-x: auto; }
+.wh-kv { display: flex; gap: 10px; align-items: center; padding: 2px 0; }
+.wh-kv > span:first-child { width: 90px; flex: none; color: var(--sub); }
+.wh-kv.bad > span:last-child, .wh-pan .bad { color: var(--error); }
+.wh-h { margin: 10px 0 4px; color: var(--sub); font-weight: 600; }
+.wh-t { border-collapse: collapse; width: 100%; }
+.wh-t th, .wh-t td { text-align: left; padding: 3px 8px 3px 0; vertical-align: top; border-bottom: 1px solid var(--hair); white-space: nowrap; }
+.wh-t td:last-child { white-space: normal; }
+.wh-t th { color: var(--weak); font-weight: 500; }
+
+/* Usage meter (v0.19.9) */
+.usagechip { font-variant-numeric: tabular-nums; }
+.usagechip[data-level="low"] { color: var(--warning-ink, #8a6100); border-color: var(--warning); }
+.usagechip[data-level="out"] { color: var(--error-ink, #9b2c22); border-color: var(--error); }
+.usagepop { z-index: 60; width: 280px; padding: 12px 14px; display: grid; gap: 6px; background: var(--ground); border: 1px solid var(--hair2); border-radius: var(--r-md); box-shadow: var(--shadow-lg); color: var(--body); }
+.usagepop .urow { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; }
+.usagepop .urow.sub { color: var(--sub); font-size: 12px; }
+.usagepop .ubar { height: 6px; border-radius: 999px; background: var(--faint2); overflow: hidden; }
+.usagepop .ubar span { display: block; height: 100%; background: var(--ink); border-radius: 999px; }
+.usagepop .ubar.none { opacity: .4; }
+.usagepop .ucap { display: flex; gap: 8px; align-items: center; margin-top: 4px; }
+.usagepop .ucap input { width: 72px; padding: 4px 8px; margin: 0 4px; }
+
+/* Writing tools (v0.19.10) */
+.wbar { z-index: 70; display: flex; gap: 2px; padding: 3px; background: var(--ink); border-radius: 999px; box-shadow: var(--shadow-lg); }
+.wbar > button { border: 0; background: transparent; color: var(--on-ink); font: 500 12px var(--display); padding: 5px 10px; border-radius: 999px; cursor: pointer; }
+.wbar > button:hover { background: color-mix(in srgb, var(--on-ink) 16%, transparent); }
+.wmenu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 71; min-width: 200px; max-height: 320px; overflow: auto; display: grid; padding: 6px; background: var(--ground); color: var(--body); border: 1px solid var(--hair2); border-radius: var(--r-md); box-shadow: var(--shadow-lg); }
+.wmenu > button { text-align: left; border: 0; background: transparent; color: var(--ink); padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+.wmenu > button:hover { background: var(--faint2); }
+.wmenu .wother { display: flex; gap: 6px; padding: 6px 4px 2px; border-top: 1px solid var(--hair); margin-top: 4px; }
+.wmenu .wother input { flex: 1; min-width: 0; padding: 4px 8px; }
+.wcard { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 72; width: min(760px, calc(100vw - 32px)); max-height: min(60vh, 520px); display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; gap: 10px; padding: 14px; background: var(--ground); color: var(--body); border: 1px solid var(--hair2); border-radius: var(--r-lg, 16px); box-shadow: var(--shadow-lg); }
+.wcard .wc-h { display: flex; justify-content: space-between; align-items: center; color: var(--ink); }
+.wcard .wc-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; min-height: 0; }
+.wcard .wc-cols > div { display: grid; grid-template-rows: auto minmax(0, 1fr); min-height: 0; }
+.wcard .wc-orig, .wcard .wc-new { white-space: pre-wrap; overflow: auto; padding: 8px 10px; border-radius: 10px; background: var(--sunk); border: 1px solid var(--hair); font-size: 13px; line-height: 1.5; }
+.wcard .wc-orig { color: var(--sub); }
+.wcard .wc-new { color: var(--ink); }
+.wcard .wc-new.wc-wait { color: var(--weak); }
+.wcard .wc-new.bad { color: var(--error); }
+.wcard .wc-acts { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+.wundo { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 72; padding: 8px 12px; border-radius: 999px; background: var(--ink); color: var(--on-ink); font-size: 13px; display: flex; gap: 8px; align-items: center; }
+.wundo .btn { color: var(--on-ink); }
+@media (max-width: 640px) { .wcard .wc-cols { grid-template-columns: 1fr; } }

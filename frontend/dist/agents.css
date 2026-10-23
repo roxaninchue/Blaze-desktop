@@ -1,0 +1,66 @@
+/* Background agents (v0.4.7): live cards in the chat, square and quiet. */
+.agcard { border: 1px solid var(--hair2); background: var(--raised); margin: 4px 0 18px; box-shadow: inset 3px 0 0 var(--accent); }
+.agcard.done, .agcard.failed, .agcard.cancelled { box-shadow: none; background: var(--paper); }
+.agcard.failed { box-shadow: inset 3px 0 0 var(--ink); }
+.agcard.waiting { border-color: var(--accent); }
+.agcard.interrupted { box-shadow: inset 3px 0 0 var(--weak); }
+.ag-hd { display: flex; align-items: center; gap: 9px; height: 34px; padding: 0 6px 0 14px; border-bottom: 1px solid var(--hair); min-width: 0; }
+.ag-sq { width: 8px; height: 8px; background: var(--accent); flex: none; }
+.agcard.running .ag-sq, .agcard.waiting .ag-sq, .orbag .ag-sq { animation: pulse .9s infinite; }
+.agcard.queued .ag-sq { background: none; border: 1.5px solid var(--accent); }
+.agcard.done .ag-sq, .agcard.cancelled .ag-sq, .agcard.interrupted .ag-sq { width: 6px; height: 6px; background: var(--weak); }
+.agcard.failed .ag-sq { background: var(--ink); }
+.ag-name { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto; }
+.ag-state { flex: none; color: var(--weak); }
+.agcard.running .ag-state, .agcard.waiting .ag-state { color: var(--accent); }
+.ag-time { font-size: 11px; color: var(--weak); flex: none; font-variant-numeric: tabular-nums; }
+.ag-stop { flex: none; }
+.ag-task { padding: 10px 14px 0; color: var(--ink); font-size: 13px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ag-now { display: flex; align-items: center; gap: 8px; width: 100%; min-height: 34px; padding: 4px 14px 8px; text-align: left; font-size: 13px; color: var(--sub); cursor: default; min-width: 0; }
+.ag-now .ag-wt { position: relative; display: grid; min-width: 0; flex: 0 1 auto; }
+.ag-now .phrase { grid-area: 1 / 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity .25s ease, transform .25s ease; }
+.ag-now .phrase.in { opacity: 0; transform: translateY(4px); }
+.ag-now .phrase.out { opacity: 0; transform: translateY(-4px); }
+.ag-now .chev { display: none; color: var(--weak); transition: transform .15s; flex: none; }
+.agcard:not(.running):not(.waiting):not(.queued) .ag-now { cursor: pointer; font: 12px var(--mono); color: var(--weak); }
+.agcard:not(.running):not(.waiting):not(.queued) .ag-now .chev { display: block; transform: rotate(-90deg); }
+.agcard.open .ag-now .chev { transform: none; }
+.agcard:not(.running):not(.waiting):not(.queued) .ag-now:hover, .agcard:not(.running):not(.waiting):not(.queued) .ag-now:hover .chev { color: var(--ink); }
+.agcard.done .ag-task, .agcard.cancelled .ag-task { color: var(--body); }
+.ag-body { border-top: 1px solid var(--hair); }
+.ag-log { max-height: 320px; overflow: auto; }
+.ag-log .step .head { padding-left: 14px; }
+.ag-log .step pre { padding-left: 37px; }
+.ag-empty { padding: 10px 14px; }
+.ag-report { padding: 12px 14px 4px; border-top: 1px solid var(--hair); }
+.ag-report:empty { display: none; }
+.ag-report > .label { margin-bottom: 6px; }
+.ag-ask:empty { display: none; }
+.ag-ask { padding: 0 14px 12px; display: grid; gap: 10px; }
+.ag-q { border: 1px solid var(--accent); background: var(--paper); padding: 12px 14px; box-shadow: inset 3px 0 0 var(--accent); }
+.ag-q .detail { font: 12px/1.6 var(--mono); color: var(--ink); background: var(--faint); border: 1px solid var(--hair); padding: 8px 10px; white-space: pre-wrap; word-break: break-all; margin-top: 6px; }
+.ag-q .qtext { color: var(--ink); margin-top: 4px; }
+.ag-q .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.ag-ans { display: flex; gap: 8px; margin-top: 10px; }
+.ag-ans .field { flex: 1; height: 32px; padding: 0 10px; border: 1px solid var(--hair2); background: var(--raised); color: var(--ink); }
+.ag-acts { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--hair); }
+.ag-note { font-size: 12.5px; color: var(--sub); }
+
+/* The marker where an agent's result came back into the chat. */
+.agnote { display: flex; align-items: center; gap: 8px; margin: 6px 0 8px; color: var(--weak); }
+.agnote::before { content: ""; width: 14px; height: 1px; background: var(--hair2); }
+.agnote .label { color: var(--weak); }
+.agnote .label b { color: var(--ink); font-weight: 500; }
+
+/* A message sent while Blaze was answering waits its turn. */
+.msg.user.queued .bubble { opacity: .6; }
+.msg.user.queued::after { content: "Queued"; display: block; text-align: right; font: 500 10px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--weak); margin-top: 4px; }
+
+/* Orb: compact running-agents indicator in the bar. */
+.orbag { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 8px; border: 1px solid var(--hair2); background: var(--raised); flex: none; }
+.orbag .label { font-size: 10px; }
+.orbag.wait { border-color: var(--accent); }
+.orbag:hover { border-color: var(--accent); }
+body.orb .agcard { margin: 2px 0 12px; }
+body.orb .ag-task { -webkit-line-clamp: 1; }
+body.orb .ag-time { display: none; }

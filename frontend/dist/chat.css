@@ -1,0 +1,255 @@
+/* v0.17.1 messaging chat, pill composer, greeting and rich replies, ported from Blaze-agent
+   v0.24.0 (ui/Bubbles.kt), v0.24.1 (ui/Shell.kt Composer) and v0.24.9 (ui/RichBlocks.kt).
+   Your messages: ink bubbles on the right. Blaze's: soft bubbles on the left. Consecutive
+   messages from one side group 3px apart (16px between groups) with asymmetric corners: the
+   sharp corner points at the sender on the first bubble, joined corners are tighter, the end
+   rounds off. One mono timestamp with Copy · Quote · Retry closes each group (bubbles.js). */
+
+/* ---------- thread ---------- */
+#log { padding: 24px 0 20px; }
+body.shell #log .col, #log .col { max-width: 780px; }
+.msg { margin: 0 0 16px; }
+.msg.g-first, .msg.g-mid { margin-bottom: 3px; }
+.msg.blaze .who { display: none; }
+
+/* your bubble */
+.msg.user .bubble, body.shell .msg.user .bubble {
+  max-width: min(78%, 560px); background: var(--ink); color: var(--on-ink); border: 0; /* v0.19.8: was --paper (translucent), unreadable in light */
+  padding: 9px 14px; font-size: 14px; line-height: 1.5; border-radius: 18px 4px 18px 18px;
+}
+.msg.user.g-first .bubble { border-radius: 18px 4px 6px 18px; }
+.msg.user.g-mid .bubble { border-radius: 18px 6px 6px 18px; }
+.msg.user.g-last .bubble { border-radius: 18px 6px 18px 18px; }
+.msg.user .bubble .label.acc { color: var(--on-ink); opacity: .8; }
+.msg.user.cont .bubble, body.shell .msg.user.cont .bubble { background: var(--bubble); color: var(--sub); }
+.msg.user .chips { margin-top: 6px; }
+.chatpane.narrow .msg.user .bubble { max-width: 90%; }
+
+/* Blaze's bubble: a soft fill a step off the paper, no outline */
+.msg.blaze > .md:not(:empty) {
+  background: var(--bubble); color: var(--body); width: fit-content; max-width: 100%;
+  padding: 10px 15px; border-radius: 4px 18px 18px 18px;
+}
+.msg.blaze.g-first > .md:not(:empty) { border-radius: 4px 18px 18px 6px; }
+.msg.blaze.g-mid > .md:not(:empty) { border-radius: 6px 18px 18px 6px; }
+.msg.blaze.g-last > .md:not(:empty) { border-radius: 6px 18px 18px 18px; }
+.msg.blaze > .md.hascards { width: 100%; }
+/* code, tables and answer cards sit inset inside the bubble */
+.msg.blaze .md .code { background: var(--inset); border: 0; }
+.msg.blaze .md .code .bar { border-bottom: 1px solid var(--hair); }
+.msg.blaze .md .code pre { background: transparent; }
+.msg.blaze .md code { background: var(--inset); border: 0; }
+.msg.blaze .md .acard { background: var(--inset); border: 0; border-radius: var(--r-sm); }
+.msg.blaze .md .acard .afade { background: linear-gradient(to bottom, transparent, var(--inset) 88%); }
+.msg.blaze .md .acard .amore { background: var(--inset); }
+.msg.blaze .md .acard .abody .code { background: var(--bubble); }
+.msg.blaze .md .tbl { background: var(--inset); padding: 2px 12px; }
+
+/* the soft work strip on Blaze's side (accent wash while live, no outline, round marks) */
+.msg.blaze .work, body.shell .work.live, body.shell .work.done {
+  border: 0; border-radius: var(--r-md); padding: 9px 14px; margin: 0 0 6px;
+  width: fit-content; min-width: min(280px, 100%); max-width: min(520px, 100%);
+}
+body.shell .work.live { background: var(--accent-soft); color: var(--body); }
+body.shell .work.done { background: var(--faint2); background: color-mix(in srgb, var(--bubble) 60%, transparent); }
+.work .sq { width: 7px; height: 7px; }
+.work.done .sq { width: 7px; height: 7px; }
+.work .wmeta { letter-spacing: .06em; }
+.msg.blaze .steps { border: 0; border-radius: var(--r-md); overflow: hidden; margin: 0 0 8px; max-width: min(620px, 100%);
+  background: var(--faint2); background: color-mix(in srgb, var(--bubble) 60%, transparent); }
+.msg.blaze .steps .more { border-bottom-color: var(--hair); }
+.step .st::before { width: 8px; height: 8px; border-radius: 50%; }
+.step.bad .st::before { border-radius: 2px; }
+
+/* the meta line that closes a group: time, then Copy · Quote · Retry; the route stays quiet */
+.meta { margin-top: 3px; min-height: 20px; gap: 6px; flex-wrap: wrap; }
+.meta .acts { display: none; }
+.msg.user .meta { justify-content: flex-end; }
+.msg.g-first > .meta, .msg.g-mid > .meta { display: none; }
+.gm { display: inline-flex; align-items: center; gap: 2px; }
+.gm .gt { font: 10.5px var(--mono); color: var(--weak); padding: 0 4px; }
+.gm .ga { font: 500 11.5px var(--sans); color: var(--sub); padding: 3px 6px; border-radius: var(--r-pill); }
+.gm .ga:hover { color: var(--ink); background: var(--faint2); }
+.gm .gd { width: 2px; height: 2px; border-radius: 50%; background: var(--weak); flex: none; }
+.meta .route { font-size: 10.5px; }
+.meta .route .dot { width: 5px; height: 5px; }
+
+/* follow-ups: rounded accent pills under the newest answer */
+.fups { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.fups:empty { display: none; }
+.fup { display: inline-flex; align-items: center; min-height: 34px; padding: 6px 14px; border-radius: var(--r-pill); background: var(--accent-soft); color: var(--accent); font-size: 13px; text-align: left; max-width: 100%; }
+.fup:hover { background: var(--primary-soft); }
+.msg.blaze:not(.newest) .fups, body.busy .fups { display: none; }
+
+/* inline confirm / question cards read as Blaze's newest message */
+.msg.blaze .card.confirm, #log .card.confirm, .card.freshoffer {
+  border: 0; box-shadow: none; background: var(--bubble); border-radius: 4px 18px 18px 18px;
+  max-width: min(560px, 100%); padding: 12px 16px;
+}
+#log .card.confirm .detail, .card.freshoffer .detail { background: var(--inset); border: 0; border-radius: var(--r-sm); }
+#log .card.confirm .actions .btn, .card.freshoffer .actions .btn, .ag-acts .btn, .sp-acts .btn { border-radius: var(--r-pill); }
+#log .card.confirm.done { opacity: .7; }
+.card.err, #log .card.err {
+  border: 0; box-shadow: none; background: var(--accent-soft); border-radius: 4px 18px 18px 18px; max-width: min(620px, 100%);
+}
+.card.err .title .label { color: var(--accent); }
+.card.err pre { background: var(--inset); border: 0; }
+.cutrow { border: 0; box-shadow: none; background: var(--faint2); border-radius: var(--r-pill); padding: 5px 6px 5px 14px; width: fit-content; max-width: 100%; }
+.ag-q { background: var(--bubble); border: 0; }
+.ag-q .detail { background: var(--inset); border: 0; }
+
+/* round scroll-to-bottom */
+.chatpane { position: relative; }
+.jump { position: absolute; left: 50%; bottom: 112px; transform: translate(-50%, 8px); width: 36px; height: 36px; border-radius: 50%;
+  display: grid; place-items: center; background: var(--raised); color: var(--ink); box-shadow: var(--shadow); border: 1px solid var(--hair);
+  opacity: 0; pointer-events: none; transition: opacity .15s, transform .15s; z-index: 6; }
+.jump.on { opacity: 1; pointer-events: auto; transform: translate(-50%, 0); }
+.jump:hover { border-color: var(--hair2); }
+
+/* ---------- pill composer (v0.24.1) ---------- */
+#composer { padding: 8px 28px 18px; }
+.inbox, body.shell .inbox {
+  border: 1px solid var(--field-line); background: var(--field); box-shadow: none; border-radius: 27px;
+  transition: border-color .12s, box-shadow .12s, border-radius .12s;
+}
+.inbox:focus-within { border-color: var(--hair2); box-shadow: 0 0 0 3px var(--accent-soft); }
+.inbox.tall, .inbox.hasatt { border-radius: var(--r-lg); }
+.inbox.plan, .inbox.plan:focus-within { box-shadow: none; border-color: var(--ink); }
+.inbox.pilot, .inbox.pilot:focus-within { box-shadow: none; border-color: var(--accent); }
+.irow { display: flex; align-items: flex-end; gap: 4px; padding: 5px; }
+.ifield { position: relative; flex: 1; min-width: 0; align-self: center; }
+#input { padding: 11px 6px 11px 4px; min-height: 44px; font-size: 15px; line-height: 22px; }
+.inbox.hinting #input::placeholder { color: transparent; }
+.phint { position: absolute; left: 4px; right: 6px; top: 11px; font-size: 15px; line-height: 22px; color: var(--sub);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none; display: none;
+  transition: opacity .42s ease, transform .42s ease; }
+.inbox.hinting .phint { display: block; }
+.phint.in { opacity: 0; transform: translateY(7px); }
+.phint.out { opacity: 0; transform: translateY(-7px); transition-duration: .3s; }
+@media (prefers-reduced-motion: reduce) { .phint { transition: none; } }
+/* thin + on the left (× while the menu is open), a mic that becomes a round send arrow, a stop square while working */
+.irow .plusbtn, body.shell .irow .plusbtn { width: 44px; height: 44px; border: 0; color: var(--ink); border-radius: 50%; flex: none; }
+.irow .plusbtn:hover { background: var(--faint2); color: var(--ink); }
+.irow #plus svg { width: 18px; height: 18px; stroke-width: 1.5; transition: transform .15s; }
+.irow #plus.open { background: var(--ink); color: var(--paper); }
+.irow #plus.open svg { transform: rotate(45deg); }
+.irow .keyshelp { width: 30px; height: 44px; font-size: 12px; color: var(--weak); margin: 0; }
+.irow .modechip { align-self: center; margin: 0 4px; border-radius: var(--r-pill); }
+.irow .recline { align-self: center; border-radius: var(--r-pill); }
+body.shell .inbox #mic { display: none; }
+body.shell .inbox:not(.has-text):not(.busy) #mic, body.shell .inbox #mic.rec, body.shell .inbox #mic.busy { display: grid; }
+.irow #mic svg { width: 19px; height: 19px; }
+.irow #mic.rec { background: var(--primary); color: var(--on-primary); }
+.sendbtn, #send.sendbtn { width: 44px; height: 44px; padding: 0; border-radius: 50%; flex: none; display: none; place-items: center;
+  background: var(--primary); color: var(--on-primary); border: 0; }
+.inbox.has-text #send, .inbox.busy #send { display: grid; }
+body.shell .inbox:not(.has-text):not(.busy) #mic.rec ~ #send { display: none; }
+#send.sendbtn:hover { background: var(--primary-hover); }
+#send.sendbtn svg { width: 17px; height: 17px; stroke-width: 2; }
+#send.sendbtn[data-stop=true] { background: var(--primary); }
+#send.sendbtn[data-stop=true] svg { width: 14px; height: 14px; fill: currentColor; stroke-width: 1.5; }
+#send.sendbtn[data-stop=true] svg rect { rx: 2.5px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.attach { padding: 10px 14px 0; }
+.chatpane.narrow #composer { padding: 6px 10px 10px; }
+.chatpane.narrow .irow .plusbtn, .chatpane.narrow .sendbtn { width: 38px; height: 38px; }
+.chatpane.narrow #input { min-height: 38px; padding: 8px 4px; }
+.chatpane.narrow .phint { top: 8px; }
+
+/* ---------- empty state: mobile's greeting ---------- */
+.hero { padding: 8vh 0 20px; }
+.hero .hmark { width: 44px; height: 44px; border-radius: 50%; display: block; margin-bottom: 18px; }
+.hero .big { font: 500 40px/1.08 var(--display); letter-spacing: -.035em; margin-top: 12px; }
+.hero .big em { font-style: normal; color: var(--ink); }
+.hero .lead { font-size: 15px; line-height: 1.6; color: var(--body); margin-top: 14px; }
+.hero .trylabel { margin-top: 30px; }
+.suggest { margin-top: 10px; gap: 8px; }
+.suggest button { border: 0; background: var(--bubble); border-radius: var(--r-md); padding: 12px 16px; gap: 3px; transition: background .12s, transform .12s; }
+.suggest button:hover { background: var(--accent-soft); }
+.suggest button:hover .label { color: var(--accent); }
+.suggest button .label { font-size: 9.5px; color: var(--weak); }
+.hkhint .kbd { border-radius: 6px; }
+.chatpane.narrow .hero .big { font-size: 28px; }
+
+/* ---------- rich replies (v0.24.9) ---------- */
+/* step-flow: numbered dots joined by a line */
+.md ol.flow { counter-reset: none; display: grid; gap: 0; }
+.md ol.flow li { padding: 0 0 14px 40px; margin: 0; counter-increment: none; }
+.md ol.flow li::before { content: none; }
+.md ol.flow li:last-child { padding-bottom: 2px; }
+.md ol.flow .fdot { position: absolute; left: 0; top: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--primary); color: var(--on-primary);
+  display: grid; place-items: center; font: 600 12px/1 var(--sans); }
+.md ol.flow li:not(:last-child)::after { content: ""; position: absolute; left: 12px; top: 28px; bottom: 2px; width: 2px; border-radius: 1px; background: var(--primary-soft); }
+.md ol.flow .ftitle { display: block; color: var(--ink); font-weight: 600; line-height: 26px; }
+.md ol.flow .fdesc { display: block; color: var(--body); }
+/* pictures */
+.md .rimg img, .md .rgroup img, .md .rside img { display: block; width: 100%; height: auto; border-radius: var(--r-sm); background: var(--inset); object-fit: cover; }
+.md .rimg { max-width: 480px; }
+.md .rgroup { display: grid; gap: 6px; grid-template-columns: repeat(var(--n, 2), 1fr); }
+.md .rgroup img, .md .rside img, .md .rimg img { aspect-ratio: 4 / 3; }
+/* v0.19.15: a single picture (a chart, a screenshot) is shown whole, never cropped; 2-3 side by side and the deck stay 4:3 cover */
+.md .rimg img, .md .rside img { aspect-ratio: auto; object-fit: contain; }
+.md .rside { display: grid; grid-template-columns: minmax(120px, 38%) 1fr; gap: 14px; align-items: start; }
+.md .rside p { margin: 0; }
+.chatpane.narrow .md .rside { grid-template-columns: 1fr; }
+/* the deck: 4+ pictures stacked and slightly tilted; arrows flip through them */
+.md .deck { position: relative; width: min(calc(100% - 32px), 420px); aspect-ratio: 4 / 3; margin: 18px 16px 30px; }
+.md .deck .dcard { position: absolute; inset: 0; border-radius: var(--r-md); overflow: hidden; background: var(--inset); box-shadow: var(--shadow);
+  transition: transform .45s cubic-bezier(.2,.7,.2,1), opacity .35s; transform-origin: 50% 100%; }
+.md .deck .dcard img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.md .deck .dcard[data-o="0"] { z-index: 4; transform: none; }
+.md .deck .dcard[data-o="1"] { z-index: 3; transform: translate(12px, 4px) rotate(3.5deg); }
+.md .deck .dcard[data-o="2"] { z-index: 2; transform: translate(-10px, 6px) rotate(-3deg); }
+.md .deck .dcard[data-o="3"] { z-index: 1; opacity: 0; transform: translate(0, 8px) rotate(1deg); }
+.md .deck .dcard.flip { transform: translateX(-60%) rotate(-12deg); opacity: 0; }
+.md .deck .dnav { position: absolute; top: 50%; z-index: 5; width: 32px; height: 32px; margin-top: -16px; border-radius: 50%; background: var(--raised); color: var(--ink); box-shadow: var(--shadow); display: grid; place-items: center; font-size: 18px; line-height: 1; }
+.md .deck .dnav.prev { left: -10px; } .md .deck .dnav.next { right: -10px; }
+.md .deck .dcount { position: absolute; left: 50%; bottom: -18px; transform: translateX(-50%); font: 10.5px var(--mono); color: var(--weak); }
+@media (prefers-reduced-motion: reduce) { .md .deck .dcard { transition: none; } }
+/* inline diagrams: the picture, its source one click away */
+.md .code.diagram .dimg { padding: 12px; background: #fff; text-align: center; }
+.md .code.diagram .dimg img { max-width: 100%; height: auto; }
+.md .code.diagram pre { display: none; }
+.md .code.diagram.src pre { display: block; }
+.md .code.diagram .dsrc { font: 500 10.5px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--sub); margin-left: 10px; }
+.md .code.diagram .dsrc:hover { color: var(--accent); }
+.md .code .bar .copy { margin-left: auto; }
+.msg.blaze .md .acard code { background: var(--bubble); }
+/* The orb (quick ask) is one column: the shell's narrow-window rail rule used to give it a 0px chat. */
+body.orb.shell #app, body.orb.shell.mode-chat #app { grid-template-columns: 1fr; }
+/* the hint never sits over what you type */
+.inbox.has-text .phint, .ifield:has(#input:not(:placeholder-shown)) .phint { display: none; }
+
+/* v0.19.14 less clutter: three tries on an empty chat, and no "Earlier chats" bar above it
+   (earlier chats are on Home's Recent list and in Search). */
+.suggest.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 18px; }
+@media (max-width: 720px) { .suggest.three { grid-template-columns: 1fr; } }
+#log .col:has(> .hero) > .olderbar { display: none; }
+
+/* 0.19.16 working pill: one subtle line under the pending reply, replaced in place.
+   Theme variables only (--sub text on --faint2 over the window ground), so every theme reads. */
+.msg.blaze > .wpill { display: inline-flex; align-items: center; gap: 7px; max-width: 100%; margin: 8px 0 2px; padding: 3px 10px 3px 8px;
+  border-radius: var(--r-pill); background: var(--faint2); border: 1px solid var(--hair); color: var(--sub);
+  font: 500 12px/18px var(--sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg.blaze > .wpill .wt { overflow: hidden; text-overflow: ellipsis; }
+/* the pill carries the step: the live "Working · 1 step · 2s" line above keeps only its counter */
+.msg.blaze.haspill .work.live > .wt { display: none; }
+.msg.blaze > .wpill .wdot { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--sub); animation: wpulse 1.4s ease-in-out infinite; }
+.msg.blaze > .wpill.swap .wt { animation: wswap .22s ease-out; }
+@keyframes wpulse { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+@keyframes wswap { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
+html.reduce-motion .msg.blaze > .wpill .wdot, html.reduce-motion .msg.blaze > .wpill.swap .wt { animation: none; }
+
+/* 0.19.16 delivery status under the user's latest message: dots + Sending / Sent / Read. */
+.msg.user > .dstat { display: flex; justify-content: flex-end; align-items: center; gap: 5px; margin-top: 4px; color: var(--sub); font: 500 11px/14px var(--sans); }
+.msg.user > .dstat .dd { display: inline-flex; gap: 2px; }
+.msg.user > .dstat .dd i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; opacity: .35; }
+.msg.user > .dstat[data-state=sending] .dd i { animation: wpulse 1.2s ease-in-out infinite; }
+.msg.user > .dstat[data-state=sending] .dd i:nth-child(2) { animation-delay: .2s; }
+.msg.user > .dstat[data-state=sending] .dd i:nth-child(3) { animation-delay: .4s; }
+.msg.user > .dstat[data-state=sent] .dd i:nth-child(-n+2) { opacity: 1; }
+.msg.user > .dstat[data-state=read] .dd i { opacity: 1; }
+html.reduce-motion .msg.user > .dstat .dd i { animation: none; }
+.about .group { display: grid; gap: 10px; margin: 14px 0; }
+.about .row { display: flex; align-items: center; gap: 14px; }
+.about .row .label { min-width: 90px; color: var(--sub); }

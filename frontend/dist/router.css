@@ -1,0 +1,40 @@
+/* BlazeRouter: the top-bar button, its in-app dashboard view and the Settings card. */
+.routerbtn { display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 9px; flex: none; border: 1px solid var(--hair2); background: var(--raised); color: var(--ink); font: 500 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.routerbtn:hover, .routerbtn.on { border-color: var(--ink); }
+.routerbtn .i { width: 14px; height: 14px; }
+.brdot { width: 7px; height: 7px; flex: none; display: inline-block; background: var(--weak); }
+.brdot.green { background: #1a9a52; } .brdot.amber { background: #c98a00; } .brdot.red { background: #c23b2e; }
+:root[data-theme=dark] .brdot.green { background: #3ccf7f; } :root[data-theme=dark] .brdot.amber { background: #f0b429; } :root[data-theme=dark] .brdot.red { background: #ff6b5e; }
+@media (max-width: 900px) { .routerbtn .bt { display: none; } }
+
+.brview { flex: 1; display: flex; flex-direction: column; min-height: 0; background: var(--paper); }
+.brbar { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 6px 16px; border-bottom: 1px solid var(--hair); background: var(--chrome); flex-wrap: wrap; }
+.brbar .label { font: 500 10.5px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+.brbar .note { color: var(--sub); font-size: 12.5px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1 1 160px; }
+.brbar .url { font: 12px var(--mono); color: var(--sub); white-space: nowrap; }
+.brframe { flex: 1; width: 100%; border: 0; background: var(--paper); min-height: 0; }
+.broff { flex: 1; display: grid; place-items: center; text-align: center; padding: 40px; }
+.broff .big { font: 600 22px/1.2 var(--display); color: var(--ink); letter-spacing: -.02em; margin: 8px 0 6px; }
+.broff p { color: var(--sub); max-width: 420px; margin: 0 auto 16px; }
+
+.brswitch { position: relative; width: 30px; height: 16px; border: 1px solid var(--hair2); background: var(--sunk); flex: none; }
+.brswitch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 10px; height: 10px; background: var(--weak); transition: left .15s; }
+.brswitch.on { background: var(--accent-soft); border-color: var(--accent); }
+.brswitch.on::after { left: 16px; background: var(--accent); }
+
+.brcard { border: 1px solid var(--hair2); background: var(--raised); padding: 18px 18px 16px; margin-top: 16px; }
+.brcard .top { display: flex; align-items: center; gap: 10px; }
+.brcard .t { font: 600 16px var(--display); color: var(--ink); }
+.brcard .s { color: var(--sub); margin: 6px 0 14px; }
+.brcard .kv { display: grid; grid-template-columns: 150px 1fr; gap: 6px 12px; margin-bottom: 16px; font-size: 12.5px; }
+.brcard .kv .label { font: 500 10.5px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--sub); padding-top: 2px; }
+.brcard .kv .mono { font: 12px var(--mono); color: var(--ink); overflow-wrap: anywhere; }
+.brcard .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.brpick .opt .ot { font-family: var(--mono); font-size: 12px; }
+.brpick .grp { padding: 8px 12px 4px; font: 500 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--weak); }
+.brbar .brtabs button { height: 24px; padding: 0 10px; font-size: 12px; }
+.brclassic { margin: 14px 0 6px; font-size: 12.5px; }
+.brclassic .link { color: var(--accent); cursor: pointer; }
+.brclassic .sub { color: var(--sub); }
+h2.brh { font: 600 15px var(--display); color: var(--ink); margin: 26px 0 8px; padding-top: 16px; border-top: 1px solid var(--hair); }
+.pop .grp.brgrp { padding: 8px 12px 4px; font: 500 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--sub); }

@@ -1,0 +1,685 @@
+{
+  "format": 1,
+  "skills": [
+    {
+      "name": "ad-lab",
+      "description": "Write 5 ad variants for a product or offer (Meta/Instagram, TikTok, Google), score each on hook, clarity and call to action, and return them best first with the reasoning and a test plan. Use for \"write ads for this product\", \"ad copy\", \"which ad is better\", \"Facebook ad for HomeGlow\".",
+      "tags": [
+        "marketing",
+        "ads",
+        "copywriting",
+        "meta-ads",
+        "tiktok",
+        "testing"
+      ],
+      "version": 1,
+      "sha256": "89ce872ca483f01263e5d1160a7c17a48ab907fc7f5f34a98b623f1cd62667a2",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "api-integration",
+      "description": "Connect to a web API or webhook - read the docs, authenticate (API key, OAuth, bearer token), call endpoints with curl or code, handle pagination, rate limits, retries and errors, and store keys safely. Use when the user wants to automate a service (Shopify, Stripe, GitHub, Google, Notion, Telegram, any REST/GraphQL API) or build an integration.",
+      "tags": [
+        "api",
+        "rest",
+        "http",
+        "integration",
+        "automation",
+        "oauth"
+      ],
+      "version": 1,
+      "sha256": "714f7c5f84fa0f133379722f3681f25ce7df56b0eb68c61d7e7c41d6f0e852f4",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "browser-game",
+      "description": "Make a small playable game - arcade, puzzle, platformer, endless runner, quiz, card or board game - as one self-contained HTML file with canvas or DOM, keyboard, mouse and touch controls, sound and a score, that runs in Design and any browser. Use for \"make a game\", \"build me a playable\", clones of classic games and game jam prototypes.",
+      "tags": [
+        "games",
+        "html",
+        "canvas",
+        "javascript",
+        "interactive",
+        "design"
+      ],
+      "version": 1,
+      "sha256": "30feb075312a52039a447db0a70a381d03083ff483a4a4bbee1b8a4213e52bb3",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "classroom-sync",
+      "description": "Sync Google Classroom into Blaze - list the student's courses and upcoming assignments, then add each one to Schedule with a reminder 24 hours before it is due, without duplicates. Use for \"sync my Classroom\", \"what assignments are due\", \"remind me of my coursework\" or a weekly assignment check.",
+      "tags": [
+        "student",
+        "google-classroom",
+        "assignments",
+        "schedule",
+        "reminders",
+        "sync"
+      ],
+      "version": 1,
+      "sha256": "f6766826fe87e6a1347a6a46d1477e7ffb2c646b491fc49253c8d8936b791a2d",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "code-review",
+      "description": "Review code changes - a diff, a branch, a pull request or a file - for bugs, security, performance, readability and tests, and report findings ranked by severity with concrete fixes. Use when the user asks to \"review\", \"check my code\", \"look over this PR\" or before merging Blaze's own work.",
+      "tags": [
+        "code",
+        "review",
+        "quality",
+        "security",
+        "git"
+      ],
+      "version": 1,
+      "sha256": "3e37831937cc73e6b08d6db1ed0ed0a98b58d1e4b4c6032679731807be4f858b",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "content-calendar",
+      "description": "Plan and make a week of social media posts for a store or brand - post ideas, captions, hashtags and visuals designed in the Design studio with the brand kit - and save each post as a Schedule item. Use for \"plan my posts this week\", \"content calendar for HomeGlow\", \"what should I post on TikTok/Instagram\".",
+      "tags": [
+        "marketing",
+        "social-media",
+        "content",
+        "calendar",
+        "design",
+        "schedule"
+      ],
+      "version": 1,
+      "sha256": "98906026418a50d5a01b1c9e95b5434fa34570588f5338768c41d63026609657",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "data-analysis",
+      "description": "Analyse data from CSV, Excel/Google Sheets exports, JSON or SQLite - clean it, answer questions with numbers, find trends and outliers, make charts and a short written summary. Use for \"analyse this spreadsheet\", sales/expense/traffic numbers, survey results, logs or any table of data.",
+      "tags": [
+        "data",
+        "csv",
+        "excel",
+        "spreadsheet",
+        "python",
+        "pandas",
+        "charts"
+      ],
+      "version": 1,
+      "sha256": "082e1f3699a53a7c4bfa80895e23916fd8e53a17766051b9a2b9f9e520894112",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "debugging",
+      "description": "Find and fix the root cause of a bug, crash, failing test, wrong output, build error or \"it worked yesterday\" - systematically, with a reproduction, one hypothesis at a time, and a regression test. Use whenever something is broken or behaves unexpectedly.",
+      "tags": [
+        "code",
+        "debugging",
+        "errors",
+        "testing",
+        "troubleshooting"
+      ],
+      "version": 1,
+      "sha256": "329da5e64d9e5a04df55d274ffee02a47faaf263b7595aed4d87bb2608ff9214",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "deep-research",
+      "description": "Research a question thoroughly on the web - compare options, check facts, survey a topic, find the best tool/product/price - and answer with sources for every claim. Use when the answer needs more than one search, the stakes are real, or the user asks for \"research\", \"compare\", \"find out\", \"is it true that\".",
+      "tags": [
+        "research",
+        "web",
+        "sources",
+        "fact-check",
+        "comparison"
+      ],
+      "version": 1,
+      "sha256": "971702c8de39058dd31f9856b7912e0460e2ac85056a5e167e6a08d5e19e5c3e",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "diagrams",
+      "description": "Make clear diagrams - flowcharts, mind maps, org charts, sequence and architecture diagrams, timelines, ER and state diagrams, user journeys - as Mermaid or hand-placed SVG that previews in Design, with PNG, SVG or PDF export. Use for any \"diagram\", \"flowchart\", \"mind map\", \"chart how X works\" or \"map out\" request.",
+      "tags": [
+        "diagrams",
+        "flowchart",
+        "mermaid",
+        "svg",
+        "visual",
+        "design"
+      ],
+      "version": 1,
+      "sha256": "810ba9bce02afc5c40254ef9fd3a17c6d027d14f7ef601ecd685b3f8b515075c",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "document-writing",
+      "description": "Write or edit a document - report, proposal, README, guide, essay, cover letter, SOP, meeting notes - that is clear, structured and ready to share as Markdown, DOCX or PDF. Use for any request to draft, rewrite, summarise or polish long-form text.",
+      "tags": [
+        "writing",
+        "docs",
+        "report",
+        "markdown",
+        "pdf",
+        "docx"
+      ],
+      "version": 1,
+      "sha256": "64f58d11e2bf93f37507c7f53cbb6b27fe2ff86d81a57d16a1f1b5be7a3fe63d",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "email-drafting",
+      "description": "Draft emails and messages - replies, follow-ups, cold outreach, client updates, complaints, requests, apologies, Slack/WhatsApp messages and freelance proposals (Upwork/Fiverr) - in the user's voice, short and clear, always shown for approval before anything is sent. Use for any \"write/reply to/answer this email or message\" request.",
+      "tags": [
+        "writing",
+        "email",
+        "messages",
+        "communication",
+        "freelance"
+      ],
+      "version": 1,
+      "sha256": "4abfbed395f54a1f871695f8eacfaa315a473a0f7723981a3a6474fae3b4f888",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "essay-coach",
+      "description": "Coach a student through an essay or report - understand the question, build an outline and thesis, give specific feedback on their own draft, and format citations in APA 7 or Harvard. Refuses to write a full graded essay and offers coaching instead. Use for essays, reports, assignments, \"check my essay\", \"cite this source\".",
+      "tags": [
+        "student",
+        "essay",
+        "writing",
+        "feedback",
+        "citations",
+        "apa",
+        "harvard"
+      ],
+      "version": 1,
+      "sha256": "fe09c1a44bcfc2c6803b955eb8ed3a434b21e417443d1c11e6e859787b1ee51c",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "floor-plan",
+      "description": "Draw 2D floor plans and layouts to scale - a room, flat, house, office, shop, garden, event or seating layout - as a measured SVG with walls, doors, windows, furniture and dimensions, previewed and edited in Design, with PDF and PNG export. Use for \"floor plan\", \"room layout\", \"where should furniture go\", \"seating plan\" or site layout requests.",
+      "tags": [
+        "floor-plan",
+        "layout",
+        "architecture",
+        "interior",
+        "svg",
+        "design"
+      ],
+      "version": 1,
+      "sha256": "01399d5f92033a1723e55f7c3b7ce22589e2328c68dad95d7dc1919a97506a9a",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "git-pr-workflow",
+      "description": "Day-to-day git and GitHub - branch, commit with good messages, rebase on main, resolve conflicts, push, open a pull request, watch CI, merge, tag a release, and undo mistakes safely. Use for any git or PR task, or when finishing a coding change.",
+      "tags": [
+        "git",
+        "github",
+        "pr",
+        "ci",
+        "release",
+        "version-control"
+      ],
+      "version": 1,
+      "sha256": "c29734355540e3c1036081280cfbb2b7ac988b93c0696124681d5d2d44c810a1",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "group-project",
+      "description": "Run a student group project - set up a project with a tasks list, split work fairly by person and deadline, track progress, and write a short \"WhatsApp summary\" message the student can paste into the group chat (or send through the paired phone with approval). Use for group assignments, team presentations, \"who's doing what\", \"summarise for the group\".",
+      "tags": [
+        "student",
+        "group",
+        "project",
+        "tasks",
+        "whatsapp",
+        "teamwork"
+      ],
+      "version": 1,
+      "sha256": "031bd044aba52d30667b382659b3223f32b7c842fe2f12e094952b998acc3844",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "image-assets",
+      "description": "Create, convert and optimise images and visual assets - resize, crop, compress, convert (PNG/JPEG/WebP/AVIF/SVG/ICO), make favicons and app icons, social/OG images, product photos, screenshots, simple SVG logos and icons, background removal - with ImageMagick, ffmpeg, Python or SVG by hand. Use for any image or asset file task.",
+      "tags": [
+        "images",
+        "assets",
+        "svg",
+        "imagemagick",
+        "web",
+        "design"
+      ],
+      "version": 1,
+      "sha256": "fe06164a641159f999d948a5241bc01ed5eb3c407be94defef06b99a8fd037e0",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "landing-page-builder",
+      "description": "Build a single-file landing page (one index.html with inline CSS/JS) that is responsive, accessible and fast - for a product, event, portfolio, waitlist or offer. Use whenever the user wants \"a page\", \"a site\", \"a landing page\" or \"a one-pager\" and no framework is required.",
+      "tags": [
+        "web",
+        "html",
+        "css",
+        "landing-page",
+        "accessibility",
+        "performance"
+      ],
+      "version": 1,
+      "sha256": "be549b58047c72e84e8473908adb0a85a5f990a52a32f800a9e6bcca8f5519b0",
+      "files": [
+        "SKILL.md",
+        "assets/template.html"
+      ]
+    },
+    {
+      "name": "lecture-notes",
+      "description": "Turn a lecture recording or rough class notes into clean study notes - transcribe audio on this PC with Whisper, then write structured notes, a short summary, key terms with definitions and likely exam questions. Use for \"transcribe my lecture\", \"make notes from this recording\", \"clean up my class notes\".",
+      "tags": [
+        "student",
+        "lecture",
+        "notes",
+        "transcription",
+        "whisper",
+        "summary"
+      ],
+      "version": 1,
+      "sha256": "b8f9b191cd604656e742a9db4bc92322d0003dad7ae7b4e80816295f811ab2bc",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "motion-graphics",
+      "description": "Make short animations and motion graphics - animated logos, loaders, explainer loops, kinetic text, animated stickers, social clips and UI micro-interactions - with CSS, SVG or canvas previewed live in Design, then exported to MP4, GIF, WebM or a Lottie-style JSON when needed. Use for \"animate\", \"animation\", \"GIF\", \"loop\", \"motion\" or short video graphic requests.",
+      "tags": [
+        "animation",
+        "motion",
+        "gif",
+        "video",
+        "css",
+        "svg"
+      ],
+      "version": 1,
+      "sha256": "697a1aa0a2e566f6f1cf85c9330c1ea6dc447f8a479bcee22296f02355ed36f8",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "music-audio",
+      "description": "Make music and sound with code - melodies, chord progressions, beats, jingles, ringtones, game sound effects and ambient loops - as MIDI, WAV or MP3 (and a playable page), plus cleaning, trimming and converting audio files. Use for \"make a song\", \"compose a melody\", \"beat\", \"jingle\", \"sound effect\", \"ringtone\" or audio editing requests.",
+      "tags": [
+        "music",
+        "audio",
+        "midi",
+        "sound-effects",
+        "ffmpeg",
+        "creative"
+      ],
+      "version": 1,
+      "sha256": "21781fda04b1c1e6fad2a37c42862154ee78f8da00823cb42ba13cf7e910b602",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "paper-sketch",
+      "description": "Draw a 2D doodle, sketch or hand-drawn illustration that looks like pencil, pen or marker on real paper (notebook, sketchbook, sticky note, napkin, graph paper) as a self-contained SVG the Design tab previews and edits, with PNG export. Use for doodles, sketches, hand-drawn notes, storyboards and \"draw me\" requests.",
+      "tags": [
+        "drawing",
+        "sketch",
+        "doodle",
+        "svg",
+        "illustration",
+        "design"
+      ],
+      "version": 1,
+      "sha256": "5ba1fc11e51e26e9635c52850738fbfdcb00c1fac7a2ed0298a290ea2a2a3e21",
+      "files": [
+        "SKILL.md",
+        "assets/sketch.svg"
+      ]
+    },
+    {
+      "name": "pixel-art",
+      "description": "Make pixel art - game sprites, characters, tiles and tilesets, icons, emoji-style stickers and animated sprite sheets - on a real pixel grid with a limited palette, previewed in Design and exported as crisp scaled PNG, GIF or a sprite sheet. Use for \"pixel art\", \"8-bit\", \"16-bit\", \"sprite\", \"tileset\" or retro game asset requests.",
+      "tags": [
+        "pixel-art",
+        "sprites",
+        "games",
+        "retro",
+        "png",
+        "design"
+      ],
+      "version": 1,
+      "sha256": "7524c71b5fd3f90f873b887f22c8948c58b65cfabfa5385ac9d8a854b174f602",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "planning-task-breakdown",
+      "description": "Turn a goal or a big messy request into a concrete plan - milestones, ordered tasks with owners and estimates, dependencies, risks and the next action - and keep it updated as work happens. Use for projects, launches, study plans, \"how do I start\", multi-step coding work, or before any task that will take more than ~30 minutes.",
+      "tags": [
+        "planning",
+        "tasks",
+        "project-management",
+        "productivity"
+      ],
+      "version": 1,
+      "sha256": "a9bede6fd297dd0456c5ae610f7402eb732921ecdc64385540c2a18536402fb3",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "print-design",
+      "description": "Design things that get printed - posters, flyers, business cards, invitations, certificates, menus, stickers, labels, badges, T-shirt and merch graphics - at real print sizes with bleed, safe margins and print-ready PDF or PNG export. Use for any poster, flyer, card, invitation, sticker, label or \"print this\" request.",
+      "tags": [
+        "print",
+        "poster",
+        "flyer",
+        "business-card",
+        "pdf",
+        "design"
+      ],
+      "version": 1,
+      "sha256": "128d321d31a7c6ff117d04ba864f244c765e578e3df4da7a7df2a3f07b354209",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "product-listing",
+      "description": "Turn a supplier product URL (AliExpress, Zendrop, CJ Dropshipping, Alibaba, Temu) into a ready Shopify listing - title, benefit-led description, bullet specs, tags, SEO title and meta, price suggestion and image prompts. Use for \"write a listing for this product\", \"add this AliExpress item to my store\", \"product description\".",
+      "tags": [
+        "ecommerce",
+        "shopify",
+        "dropshipping",
+        "copywriting",
+        "seo",
+        "product"
+      ],
+      "version": 1,
+      "sha256": "c6f9b1ba57e3b24f27b240e1192be4dd17ab03294decef6cc4d8c365c974de7d",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "refactoring",
+      "description": "Restructure existing code without changing its behaviour - split large files or functions, remove duplication, rename, untangle dependencies, modernise APIs - in small, tested, reversible steps. Use when code is hard to change, before adding a feature to messy code, or when the user asks to \"clean up\" or \"refactor\".",
+      "tags": [
+        "code",
+        "refactoring",
+        "quality",
+        "architecture"
+      ],
+      "version": 1,
+      "sha256": "e0f8b9b1a433e3961834d6c54e98f0479667aa965a400c47a57a21fd6a195c20",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "research-brief",
+      "description": "Produce a one-page competitor and pricing brief for a product or store - who sells it, at what price, how they position it, their shipping and reviews, gaps to exploit and a recommended price - using the deep-research skill for sourcing. Use for \"research competitors\", \"what should I charge\", \"is this product saturated\", \"market research for HomeGlow\".",
+      "tags": [
+        "marketing",
+        "research",
+        "competitors",
+        "pricing",
+        "ecommerce",
+        "brief"
+      ],
+      "version": 1,
+      "sha256": "f2e862332ea4936a7bb8c3715ee520165795ebcb4e40344438c3943776b1da15",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "shell-sysadmin",
+      "description": "Run and fix things on the user's computer across Windows (PowerShell), macOS and Linux including Arch - install software, manage services, disk space, processes, ports, networks, permissions, startup apps, scheduled jobs and updates - safely and with the right commands for that OS. Use for any \"my PC…\", \"install…\", \"why is X slow/full/broken\" or system-level task.",
+      "tags": [
+        "shell",
+        "sysadmin",
+        "windows",
+        "macos",
+        "linux",
+        "arch",
+        "powershell"
+      ],
+      "version": 1,
+      "sha256": "3d4e73d1b1172381d019be37f85c44a991047aa9ac47e4b9020a40cc32dac537",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "skill-creator",
+      "description": "How to write or improve a Blaze skill (SKILL.md) - when a workflow is worth saving, how to name and describe it so it's found, how to structure the steps, checklists and templates, and how to update it later. Use before calling write_skill, when the user says \"save this as a skill\" or teaches you a method, or when an existing skill turned out wrong.",
+      "tags": [
+        "skills",
+        "meta",
+        "writing",
+        "workflow"
+      ],
+      "version": 1,
+      "sha256": "9bbb94815541715e45bcd02d293da1ea46a7b2835d0f3da0c149c50a1afcd202",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "slide-deck",
+      "description": "Make a presentation - pitch deck, class talk, project update or report-out - as a single self-contained HTML deck (arrow keys, fullscreen, print to PDF) or as .pptx when the user needs PowerPoint. Use for any \"slides\", \"deck\", \"presentation\" or \"pitch\" request.",
+      "tags": [
+        "slides",
+        "presentation",
+        "writing",
+        "design",
+        "pptx"
+      ],
+      "version": 1,
+      "sha256": "d34d2aba796ea445a4937fb6f3b2da3612cb6f9d17bd66f90cc8ea0fc18bb698",
+      "files": [
+        "SKILL.md",
+        "assets/deck.html"
+      ]
+    },
+    {
+      "name": "study-planner",
+      "description": "Build a day-by-day study plan from an exam date and a list of topics, put each session in Schedule with a reminder, and re-plan when the student misses a day. Use for \"help me study for my exams\", \"make a revision timetable\", \"I have finals on the 16th\" or \"I missed yesterday's study\".",
+      "tags": [
+        "student",
+        "study",
+        "exams",
+        "planning",
+        "schedule",
+        "revision"
+      ],
+      "version": 1,
+      "sha256": "3dc19fe038dc5bb495d816d3d0c47d92995e363ef53149a562029d67eabc9681",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "three-d-design",
+      "description": "Design anything 3D (a product, furniture, a printable part, a building, a character) as a Three.js mockup in the Design tab that the user can orbit, pick and edit part by part, then build it in the program they named (Blender, FreeCAD, OpenSCAD, Fusion 360, Unity) from the same parts. Use for any 3D model, 3D design, CAD or 3D printing request.",
+      "tags": [
+        "3d",
+        "design",
+        "threejs",
+        "cad",
+        "blender",
+        "modeling",
+        "mockup"
+      ],
+      "version": 1,
+      "sha256": "a4c4d85e4d5321c3b001a0e5b523fdd531b4f1f0fc57caa38999b546dc5db5d1",
+      "files": [
+        "SKILL.md",
+        "assets/mockup.html"
+      ]
+    },
+    {
+      "name": "tutor",
+      "description": "Teach a topic the way a good tutor does - explain simply, check understanding with questions, then turn notes, a PDF or slides into flashcards that the Learn view reviews with spaced repetition. Use for \"explain this\", \"quiz me\", \"help me understand\", \"make flashcards from lecture 4\" or exam revision.",
+      "tags": [
+        "student",
+        "tutor",
+        "flashcards",
+        "quiz",
+        "learning",
+        "spaced-repetition"
+      ],
+      "version": 1,
+      "sha256": "4442f67c8ea863bb357521ecfb6f2c0f3a7692835955d4fdf9553bbb9fb6eb3c",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "web-audit",
+      "description": "Audit a website or web app for accessibility, performance, SEO and basic security, then fix the top issues - with Lighthouse, axe, browser devtools and manual keyboard/screen-reader checks. Use when a page is slow, before launch, when the user asks \"is my site good/accessible/fast\", or after building a page.",
+      "tags": [
+        "web",
+        "accessibility",
+        "performance",
+        "seo",
+        "lighthouse",
+        "audit"
+      ],
+      "version": 1,
+      "sha256": "15c79e21a7786c25660b98443534cf118a6dc70bc871ac35c31bb8cbce8a20f3",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "web-design-blaze-classic",
+      "description": "Design or build pages, apps or components in the classic Blaze look from blazeinchue.netlify.app - paper #fcfcfc, ink #111110, one blue accent #1f4bd8, square edges, Inter + Inter Tight, mono uppercase labels, hairline-ruled grids and particle-dot hovers. Use for anything Blaze-branded or when the user asks for \"the Blaze style\".",
+      "tags": [
+        "design",
+        "web",
+        "css",
+        "brand",
+        "blaze"
+      ],
+      "version": 1,
+      "sha256": "44a556c2ef45c15cc1b451ff03c01c80a2ab62dd36ec04674ad09fd98dec40ca",
+      "files": [
+        "SKILL.md",
+        "assets/starter.html",
+        "assets/tokens.css"
+      ]
+    },
+    {
+      "name": "web-design-teamofkeys",
+      "description": "Design or build a website in the style of teamofkeys.com - near-black and white sections, one hot orange accent, huge tight sans headlines with one italic serif word, mono \"(labels)\", pill CTAs and slow scroll-driven motion. Use when the user asks for that look, a studio/agency feel, or names Team of Keys.",
+      "tags": [
+        "design",
+        "web",
+        "css",
+        "landing-page",
+        "agency",
+        "motion"
+      ],
+      "version": 1,
+      "sha256": "c829bb557cc9fb7adf56076d5fca52ba5ea23cc273bf35693e516540f3b4e6f2",
+      "files": [
+        "SKILL.md",
+        "assets/starter.html",
+        "assets/tokens.css"
+      ]
+    },
+    {
+      "name": "weekly-digest",
+      "description": "Set up and run a weekly store digest - last week's orders and revenue, best sellers, top social posts and what to post next - as a scheduled Blaze job that sends a short report every week. Use for \"weekly report for my store\", \"how did HomeGlow do this week\", \"send me a summary every Sunday\".",
+      "tags": [
+        "ecommerce",
+        "analytics",
+        "report",
+        "schedule",
+        "social-media",
+        "shopify"
+      ],
+      "version": 1,
+      "sha256": "dc27118f37d0164a2235bf75dbad93cc06661dd0a01ba11d0fa7db3de38edab0",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "whatsapp-replies",
+      "description": "Draft WhatsApp replies to customers and leads on the desktop - order status, delivery questions, prices, complaints, follow-ups - in the store's voice, then send them through the paired Android phone over Blaze Link only after the seller approves each message. Use for \"reply to this customer\", \"answer my WhatsApp messages\", \"follow up with buyers\".",
+      "tags": [
+        "whatsapp",
+        "customer-service",
+        "messages",
+        "ecommerce",
+        "blaze-link",
+        "approval"
+      ],
+      "version": 1,
+      "sha256": "192ee307857c01f1c479fecb42ce3802c6ffd7b012f7ae0e9dc809db4bbefeb3",
+      "files": [
+        "SKILL.md"
+      ]
+    },
+    {
+      "name": "writing-tests",
+      "description": "Write or improve automated tests - unit, integration, table-driven, regression, snapshot or end-to-end - for Go, Python, JavaScript/TypeScript and others, so they catch real bugs and stay fast and reliable. Use when adding features, fixing bugs, raising coverage or when tests are flaky.",
+      "tags": [
+        "code",
+        "testing",
+        "go",
+        "python",
+        "javascript",
+        "quality"
+      ],
+      "version": 1,
+      "sha256": "f019f6117afe04b1e6e4cd433d5472fcb571a9a7979a57b3b125467755333610",
+      "files": [
+        "SKILL.md"
+      ]
+    }
+  ]
+}

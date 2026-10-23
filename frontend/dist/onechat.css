@@ -1,0 +1,50 @@
+/* v0.19 one infinite chat: no sidebar. One column, a glass top bar with the B logo, the Home | Chat |
+   Projects tabs centred, and search / router / avatar on the right. Glass tokens from glass.css. */
+#app { grid-template-columns: 1fr; }
+#badges { display: none; }
+#top { position: relative; margin: 10px 14px 8px 14px; padding: 0 12px 0 10px; }
+#top .brand { height: 34px; padding: 0 10px 0 6px; gap: 8px; border-radius: var(--r-pill); flex: none; }
+#top .brand:hover { background: var(--faint2); }
+#top .brand .bname { font-size: 14.5px; }
+/* The tabs sit in the middle of the bar whatever is on either side. */
+#pill.shpill { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 1; }
+#pill.shpill button { min-width: 88px; }
+#top .shexit { margin-left: 4px; }
+@media (max-width: 860px) {
+  #pill.shpill { position: static; transform: none; }
+  #pill.shpill button { min-width: 0; padding: 0 11px; }
+  #top .brand .bname { display: none; }
+}
+
+/* The freed width: a centred reading column for the chat, the composer under it. */
+body.shell #log .col { max-width: 800px; }
+#composer .cwrap { max-width: 800px; }
+
+/* Loading older messages at the top of the conversation. */
+.olderbar { display: flex; justify-content: center; align-items: center; min-height: 40px; margin: 6px 0 14px; }
+.olderbar.end { opacity: .8; }
+.olderbar .olderbtn { color: var(--sub); }
+.olderbar .olderbtn:hover { color: var(--ink); }
+
+/* An earlier chat (from before one mind) merged into the timeline. */
+.archsep { display: flex; align-items: center; gap: 10px; margin: 26px 0 14px; color: var(--sub); }
+.archsep::before, .archsep::after { content: ""; flex: 1; border-top: 1px solid var(--hair); }
+.archsep .t { font: 500 12.5px var(--sans); color: var(--ink); max-width: 46%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; padding: 2px 10px; border: 1px solid var(--g-hair); background: var(--g-tile); }
+.archsep .t:hover { border-color: var(--hair2); }
+.archsep .d { font: 10.5px var(--mono); color: var(--weak); }
+.archmsg { opacity: .92; }
+
+/* Search jumped here. */
+@keyframes jumpflash { 0% { box-shadow: 0 0 0 0 var(--accent-soft); } 30% { box-shadow: 0 0 0 6px var(--accent-soft); } 100% { box-shadow: 0 0 0 0 transparent; } }
+.msg.user.flash .bubble, .agnote.flash, .apnote.flash { animation: jumpflash 1.6s ease-out; }
+@media (prefers-reduced-motion: reduce) { .msg.user.flash .bubble { animation: none; outline: 1.5px solid var(--accent); } }
+
+/* A project chat: a crumb back to the project above the log. */
+.pcrumb { display: flex; align-items: center; gap: 10px; max-width: 800px; width: 100%; margin: 0 auto; padding: 4px 20px 0; flex: none; }
+.pcrumb .back { transform: rotate(180deg); }
+
+/* Search view. */
+.hsearch { height: 40px; font-size: 14px; margin: 6px 0 14px; }
+.hresults .r { grid-template-columns: 46px 1fr auto; }
+.hresults .r .n { font: 500 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--sub); }
+.hresults .r .d, .rows .r .d { font-size: 11.5px; color: var(--sub); margin-top: 2px; }

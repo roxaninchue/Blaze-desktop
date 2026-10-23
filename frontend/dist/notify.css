@@ -1,0 +1,50 @@
+/* Notifications, proactive suggestions and screen vision (notify.js). Square edges, mono labels. */
+
+/* Privacy indicator: visible whenever Blaze reads the screen. */
+#screenind { position: fixed; z-index: 60; top: 56px; right: 16px; display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 4px 0 10px;
+  background: var(--raised); border: 1px solid var(--accent); box-shadow: var(--shadow-lg, 0 6px 24px rgba(0,0,0,.12));
+  opacity: 0; transform: translateY(-4px); pointer-events: none; transition: opacity .15s, transform .15s; }
+#screenind.on { opacity: 1; transform: none; pointer-events: auto; }
+#screenind .sq { width: 8px; height: 8px; background: var(--accent); flex: none; animation: scrpulse 1.2s steps(2, jump-none) infinite; }
+#screenind .how { border-left: 1px solid var(--hair2); padding-left: 8px; }
+#screenind .btn { height: 22px; }
+body.orb #screenind { top: 50px; right: 10px; }
+#screenind.docked { position: static; display: none; height: 28px; box-shadow: none; transform: none; flex: none; }
+#screenind.docked.on { display: flex; }
+@keyframes scrpulse { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { #screenind .sq { animation: none; } }
+
+/* Transient note */
+.ntoast { position: fixed; z-index: 61; top: 56px; right: 16px; max-width: 360px; display: flex; gap: 9px; align-items: flex-start; padding: 10px 12px;
+  background: var(--raised); border: 1px solid var(--hair2); color: var(--ink); font-size: 12.5px; box-shadow: var(--shadow-lg, 0 6px 24px rgba(0,0,0,.12));
+  opacity: 0; transform: translateY(-4px); transition: opacity .2s, transform .2s; }
+.ntoast.in { opacity: 1; transform: none; }
+.ntoast .sq { width: 7px; height: 7px; background: var(--accent); flex: none; margin-top: 6px; }
+
+/* Settings › Notifications */
+.nstat { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border: 1px solid var(--hair); background: var(--raised); margin-bottom: 10px; flex-wrap: wrap; }
+.nstat .sq { width: 8px; height: 8px; background: var(--accent); flex: none; margin-top: 6px; }
+.nstat .sq.off { background: var(--weak); } .nstat .sq.ink { background: var(--ink); }
+.nstat .main { flex: 1; min-width: 0; }
+.nstat .t { color: var(--ink); font-weight: 500; }
+.nstat .s { color: var(--sub); font-size: 12.5px; overflow-wrap: anywhere; }
+.nstat .acts { flex-basis: 100%; display: flex; align-items: center; gap: 10px; padding-left: 18px; margin-top: 4px; }
+.nstat.slim { margin: 4px 0 0; padding: 8px 12px; background: var(--paper); }
+.nstat.slim .sq { margin-top: 5px; }
+.tout { min-width: 0; overflow-wrap: anywhere; }
+.nrow { display: flex; align-items: center; gap: 10px; }
+.nrow > .tt { color: var(--ink); flex: 1; min-width: 0; }
+.nrow .field { width: auto; min-width: 150px; max-width: 200px; }
+.nrow select.qsel { min-width: 0; width: 96px; }
+.nrow .toggle.inline { margin-left: 6px; }
+.toggle.dis { opacity: .55; cursor: default; }
+.rows .r.hrow { grid-template-columns: 92px 1fr auto; }
+.ntime { white-space: nowrap; }
+
+/* A clicked suggestion, in the chat */
+.suggestcard .title .label { display: inline-flex; align-items: center; gap: 6px; }
+.suggestcard .st { color: var(--ink); font-weight: 500; margin: 4px 0 0; }
+.suggestcard .detail { font: 13px/1.5 var(--sans); color: var(--body); background: none; border: 0; padding: 0; margin-top: 2px; white-space: normal; word-break: normal; }
+
+/* Doctor: a link that fixes the check */
+.r .fixbtn { flex: none; }

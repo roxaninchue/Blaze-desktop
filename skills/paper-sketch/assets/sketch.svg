@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 850" width="1100" height="850">
+  <!--
+    Blaze paper sketch starter (paper-sketch skill).
+    Layers, bottom to top: paper, rules, doodle groups, lettering. Every doodle part is its own
+    <g id="…"> so the Design tab can pick it and retype, recolour or move it.
+    Wobble comes from the filters, not from messy paths: draw clean shapes, let #pencil / #ink roughen them.
+  -->
+  <defs>
+    <!-- Paper: warm off-white with a faint fibre grain. -->
+    <filter id="paper" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" seed="4" result="grain"/>
+      <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0.45  0 0 0 0 0.40  0 0 0 0 0.32  0 0 0 0.10 0" result="tint"/>
+      <feComposite in="tint" in2="SourceGraphic" operator="over"/>
+    </filter>
+    <!-- Pencil: a slight wobble plus a broken, grainy edge. Use for graphite lines. -->
+    <filter id="pencil" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="3.2" xChannelSelector="R" yChannelSelector="G" result="wobbly"/>
+      <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="2" result="tooth"/>
+      <feColorMatrix in="tooth" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.8 1.4" result="mask"/>
+      <feComposite in="wobbly" in2="mask" operator="in"/>
+    </filter>
+    <!-- Ink: the same wobble, solid edge. Use for pen and marker. -->
+    <filter id="ink" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="11" result="warp"/>
+      <feDisplacementMap in="SourceGraphic" in2="warp" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Hatching for shading: diagonal pencil strokes; cross-hatch = both patterns stacked. -->
+    <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(38)">
+      <line x1="0" y1="0" x2="0" y2="9" stroke="#3b3a38" stroke-width="1.5" stroke-opacity=".75"/>
+    </pattern>
+    <pattern id="crosshatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(-42)">
+      <line x1="0" y1="0" x2="0" y2="9" stroke="#3b3a38" stroke-width="1.3" stroke-opacity=".6"/>
+    </pattern>
+  </defs>
+
+  <!-- 1. Paper: the sheet, a soft shadow so it reads as paper on a desk. -->
+  <g id="paper-sheet">
+    <rect width="1100" height="850" fill="#e9e4da"/>
+    <rect x="40" y="30" width="1020" height="790" rx="3" fill="#000" opacity=".08" transform="translate(6 8)"/>
+    <rect x="40" y="30" width="1020" height="790" rx="3" fill="#fbf8f1" filter="url(#paper)"/>
+  </g>
+
+  <!-- 2. Rules: notebook lines and the red margin. Remove this group for plain paper. -->
+  <g id="rules" stroke="#9fb8d6" stroke-width="1.2" opacity=".55">
+    <path d="M40 110H1060M40 150H1060M40 190H1060M40 230H1060M40 270H1060M40 310H1060M40 350H1060M40 390H1060M40 430H1060M40 470H1060M40 510H1060M40 550H1060M40 590H1060M40 630H1060M40 670H1060M40 710H1060M40 750H1060M40 790H1060"/>
+    <path d="M130 30V820" stroke="#e08c8c" stroke-width="1.6"/>
+  </g>
+
+  <!-- 3. The doodle: a steaming coffee mug. Graphite outline first, then shading, then accents. -->
+  <g id="mug" filter="url(#pencil)" fill="none" stroke="#33312e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- body: drawn twice, slightly offset, like a quick sketch that went round once more -->
+    <path d="M420 330 L438 640 Q440 668 470 670 L660 670 Q690 668 692 640 L710 330"/>
+    <path d="M423 334 L440 636 Q444 664 472 666 L657 667 Q686 664 689 637 L707 333" stroke-width="1.6" opacity=".6"/>
+    <ellipse cx="565" cy="330" rx="145" ry="30"/>
+    <ellipse cx="565" cy="336" rx="128" ry="20" stroke-width="1.8" opacity=".7"/>
+    <!-- handle -->
+    <path d="M704 400 C790 395 805 520 690 560"/>
+    <path d="M700 430 C760 430 765 505 694 530" stroke-width="2.2"/>
+  </g>
+  <g id="mug-shading" filter="url(#pencil)">
+    <path d="M640 360 L660 640 Q662 660 650 664 L680 662 Q688 650 690 630 L706 360 Q690 352 640 360Z" fill="url(#hatch)"/>
+    <path d="M665 420 L678 640 L688 630 L700 420Z" fill="url(#crosshatch)"/>
+    <ellipse cx="575" cy="690" rx="170" ry="16" fill="url(#hatch)" opacity=".7"/>
+  </g>
+  <g id="steam" filter="url(#ink)" fill="none" stroke="#33312e" stroke-width="2.4" stroke-linecap="round">
+    <path d="M520 290 C495 255 545 235 520 195 C505 170 525 150 535 140"/>
+    <path d="M570 280 C548 240 600 225 575 180 C562 155 580 135 592 125"/>
+    <path d="M620 290 C600 260 645 240 625 205"/>
+  </g>
+  <!-- marker accent: one colour, low opacity, a little off the lines like a real highlighter -->
+  <g id="mug-accent" filter="url(#ink)">
+    <path d="M452 470 L688 470 L684 540 L456 540Z" fill="#f4b740" opacity=".38"/>
+    <path d="M565 545 C522 516 515 486 540 480 C555 477 563 488 565 496 C567 488 575 477 590 480 C615 486 608 516 565 545Z" fill="none" stroke="#c0392b" stroke-width="3" stroke-linejoin="round"/>
+  </g>
+
+  <!-- 4. Lettering: hand-style system fonts, slightly rotated, sitting on a rule line. -->
+  <g id="caption" filter="url(#ink)" fill="#2a3f8f" font-family="'Segoe Print','Bradley Hand','Comic Neue','Comic Sans MS','Chalkboard SE',cursive">
+    <text x="160" y="148" font-size="44" transform="rotate(-2 160 148)">morning fuel</text>
+    <path d="M160 160 C260 166 360 150 430 158" fill="none" stroke="#2a3f8f" stroke-width="2.4" stroke-linecap="round"/>
+    <text x="760" y="610" font-size="26" transform="rotate(4 760 610)">← still hot!</text>
+  </g>
+</svg>

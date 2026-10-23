@@ -1,0 +1,26 @@
+/* CSV report (W2, csvkit.js) */
+.csvk-wrap { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.35); display: flex; align-items: center; justify-content: center; padding: 24px; }
+.csvk { background: var(--raised, #fff); color: var(--ink, #1f2328); border-radius: var(--r-md, 16px); width: min(980px, 100%); max-height: 100%; overflow: auto; padding: 16px 18px; display: grid; gap: 14px; box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+.csvk-h { display: flex; align-items: baseline; gap: 10px; }
+.csvk-h b { font-size: 15px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.csvk-sub { color: var(--sub, #59636e); font-size: 12px; }
+.csvk-x { margin-left: auto; border: 0; background: none; font-size: 20px; line-height: 1; color: var(--sub); cursor: pointer; }
+.csvk-bar { display: flex; flex-wrap: wrap; gap: 10px; font-size: 12.5px; color: var(--sub); }
+.csvk-bar select { margin-left: 4px; }
+.csvk-slot { border: 1px dashed var(--hair2, #d0d7de); border-radius: var(--r-sm, 12px); padding: 10px 12px; }
+.csvk-slot p { margin: 4px 0 0; font-size: 13px; color: var(--sub); line-height: 1.5; }
+.csvk-chart svg { width: 100%; height: auto; display: block; border-radius: var(--r-sm, 12px); }
+.csvk-sec .label, .csvk-slot .label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--sub); margin-bottom: 6px; }
+.csvk table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+.csvk th, .csvk td { padding: 5px 8px; border-bottom: 1px solid var(--hair, #eaeef2); text-align: left; white-space: nowrap; }
+.csvk th { font-weight: 600; background: var(--faint2, rgba(127,127,127,.06)); position: sticky; top: 0; }
+.csvk .r { text-align: right; font-variant-numeric: tabular-nums; }
+.csvk tr.tot td { font-weight: 600; border-top: 1px solid var(--hair2, #d0d7de); }
+.csvk-data { max-height: 320px; overflow: auto; border: 1px solid var(--hair, #eaeef2); border-radius: var(--r-xs, 8px); }
+.csvk details ul { margin: 6px 0 0; padding-left: 18px; font-size: 12.5px; line-height: 1.6; }
+.csvk details summary { cursor: pointer; font-size: 12.5px; color: var(--sub); }
+.csvk-acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.csvk-acts button, .csvk-chip { height: 30px; padding: 0 12px; border: 1px solid var(--hair2, #d0d7de); background: var(--raised, #fff); color: var(--ink); border-radius: var(--r-pill, 999px); font-size: 12.5px; cursor: pointer; }
+.csvk-chip { height: 22px; padding: 0 8px; font-size: 11.5px; margin-left: 4px; }
+.csvk-err { color: var(--danger, #d0453a); font-size: 13px; }
+.csvk-busy { color: var(--sub); font-size: 13px; padding: 20px 0; text-align: center; }

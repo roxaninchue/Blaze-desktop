@@ -1,0 +1,12 @@
+/* One mind (v0.16): fresh-context divider, Archive view. */
+.ctxsep { display: flex; align-items: center; gap: 10px; margin: 18px 0; color: var(--sub); }
+.ctxsep::before, .ctxsep::after { content: ""; flex: 1; border-top: 1px solid var(--hair); }
+.ctxsep .d { font-size: 12px; }
+#chats .chat.main .t { font-weight: 500; }
+.arch-rows { border-top: 1px solid var(--hair); }
+.arch-row { display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; align-items: center; width: 100%; padding: 11px 0; border: 0; border-bottom: 1px solid var(--hair); background: none; color: var(--ink); text-align: left; cursor: pointer; }
+.arch-row:hover { background: var(--faint2); }
+.arch-row .s { color: var(--sub); font: 11px var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+.arch-log { display: flex; flex-direction: column; gap: 14px; margin-top: 18px; }
+.arch-u { align-self: flex-end; max-width: 80%; background: var(--ink); color: var(--on-ink); padding: 10px 14px; white-space: pre-wrap; }
+.arch-b { max-width: 100%; color: var(--body); }

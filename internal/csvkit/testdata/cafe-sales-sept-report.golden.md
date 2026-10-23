@@ -1,0 +1,107 @@
+# cafe-sales-sept: data report
+
+Source: `cafe-sales-sept.csv` · cleaned copy: `cafe-sales-sept-clean.csv` · 55 rows · generated 2026-10-22 18:00
+
+## Summary
+
+<!-- blaze:summary -->
+_The written summary appears here once a model is available. Everything else in this report was computed on this computer._
+<!-- /blaze:summary -->
+
+## Total by Store
+
+![Total by Store](cafe-sales-sept-chart.png)
+
+Chart as SVG: [cafe-sales-sept-chart.svg](cafe-sales-sept-chart.svg)
+
+| Store | Sum of Total | Count | Mean Total |
+| --- | ---: | ---: | ---: |
+| Riverside | 501.30 | 20 | 25.07 |
+| Campus | 352.40 | 15 | 23.49 |
+| Old Town | 345.90 | 14 | 24.71 |
+| (blank) | 208.60 | 6 | 34.77 |
+| **Total** | **1,408.20** | **55** | **25.60** |
+
+## Cleaning
+
+- Read 61 rows (comma-separated); 55 rows kept after cleaning.
+- Removed 6 exact duplicate rows (identical once cleaned).
+- Trimmed stray spaces in 18 cells.
+- Wrote the Date column as YYYY-MM-DD (dd/mm/yyyy and mm-dd-yy styles each read the way the data shows).
+- Wrote 3 numbers plainly (currency symbols and thousands separators removed, fixed decimals).
+- Made the spelling of Store, Item, Payment consistent (79 cells changed case).
+- Filled 11 blank cells using Total = Qty × Unit Price, which holds on the other rows.
+- 6 rows have no Store; grouped as (blank).
+- Payment is blank in 14 rows.
+
+## Columns
+
+| Column | Type | Blank | Distinct |
+| --- | --- | ---: | ---: |
+| Date | date | 0 | 23 |
+| Store | category | 6 | 3 |
+| Item | category | 0 | 8 |
+| Qty | number | 0 | 14 |
+| Unit Price | number ($) | 0 | 8 |
+| Total | number | 0 | 46 |
+| Payment | category | 14 | 2 |
+
+## Cleaned data
+
+| Date | Store | Item | Qty | Unit Price | Total | Payment |
+| --- | --- | --- | ---: | ---: | ---: | --- |
+| 2026-09-17 | Riverside | Latte | 6 | 3.90 | 23.40 |  |
+| 2026-09-02 | Riverside | Espresso | 2 | 2.50 | 5.00 |  |
+| 2026-09-06 | Riverside | Cappuccino | 8 | 3.60 | 28.80 | Cash |
+| 2026-09-02 | Riverside | Flat White | 9 | 3.80 | 34.20 | Cash |
+| 2026-09-28 | Old Town | Cappuccino | 3 | 3.60 | 10.80 |  |
+| 2026-09-12 | Campus | Banana Bread | 3 | 3.20 | 9.60 |  |
+| 2026-09-09 | Old Town | Banana Bread | 11 | 3.20 | 35.20 | Card |
+| 2026-09-02 | Riverside | Bagel | 9 | 3.40 | 30.60 |  |
+| 2026-09-15 |  | Cappuccino | 6 | 3.60 | 21.60 |  |
+| 2026-09-11 | Old Town | Banana Bread | 1 | 3.20 | 3.20 | Cash |
+| 2026-09-01 | Old Town | Espresso | 9 | 2.50 | 22.50 |  |
+| 2026-09-12 | Riverside | Espresso | 13 | 2.50 | 32.50 |  |
+| 2026-09-05 |  | Bagel | 12 | 3.40 | 40.80 | Cash |
+| 2026-09-09 | Old Town | Bagel | 1 | 3.40 | 3.40 | Card |
+| 2026-09-21 | Campus | Bagel | 5 | 3.40 | 17.00 | Cash |
+| 2026-09-18 | Campus | Cappuccino | 10 | 3.60 | 36.00 |  |
+| 2026-09-02 | Campus | Flat White | 2 | 3.80 | 7.60 | Card |
+| 2026-09-24 | Riverside | Latte | 3 | 3.90 | 11.70 |  |
+| 2026-09-11 |  | Bagel | 13 | 3.40 | 44.20 | Cash |
+| 2026-09-16 | Campus | Bagel | 5 | 3.40 | 17.00 | Cash |
+| 2026-09-05 |  | Latte | 8 | 3.90 | 31.20 | Card |
+| 2026-09-26 | Old Town | Espresso | 14 | 2.50 | 35.00 | Cash |
+| 2026-09-20 | Campus | Flat White | 8 | 3.80 | 30.40 | Card |
+| 2026-09-17 | Campus | Latte | 12 | 3.90 | 46.80 | Cash |
+| 2026-09-11 | Riverside | Iced Tea | 11 | 3.00 | 33.00 | Card |
+| 2026-09-27 | Campus | Iced Tea | 14 | 3.00 | 42.00 | Cash |
+| 2026-09-17 | Old Town | Espresso | 12 | 2.50 | 30.00 | Card |
+| 2026-09-17 | Riverside | Iced Tea | 14 | 3.00 | 42.00 | Cash |
+| 2026-09-25 | Campus | Croissant | 8 | 2.90 | 23.20 | Card |
+| 2026-09-27 | Old Town | Bagel | 11 | 3.40 | 37.40 | Card |
+| 2026-09-05 | Campus | Iced Tea | 1 | 3.00 | 3.00 | Cash |
+| 2026-09-16 | Campus | Iced Tea | 13 | 3.00 | 39.00 | Cash |
+| 2026-09-09 | Old Town | Flat White | 5 | 3.80 | 19.00 | Card |
+| 2026-09-03 |  | Flat White | 11 | 3.80 | 41.80 | Card |
+| 2026-09-04 | Riverside | Flat White | 2 | 3.80 | 7.60 |  |
+| 2026-09-09 | Riverside | Flat White | 13 | 3.80 | 49.40 | Cash |
+| 2026-09-17 | Campus | Banana Bread | 5 | 3.20 | 16.00 |  |
+| 2026-09-05 | Old Town | Banana Bread | 12 | 3.20 | 38.40 | Card |
+| 2026-09-24 | Old Town | Flat White | 13 | 3.80 | 49.40 | Cash |
+| 2026-09-11 | Riverside | Espresso | 7 | 2.50 | 17.50 | Cash |
+| 2026-09-17 | Riverside | Croissant | 9 | 2.90 | 26.10 | Card |
+| 2026-09-25 | Riverside | Flat White | 13 | 3.80 | 49.40 | Card |
+| 2026-09-02 | Riverside | Espresso | 6 | 2.50 | 15.00 |  |
+| 2026-09-22 | Campus | Flat White | 8 | 3.80 | 30.40 |  |
+| 2026-09-22 | Old Town | Latte | 12 | 3.90 | 46.80 | Cash |
+| 2026-09-27 | Riverside | Croissant | 12 | 2.90 | 34.80 | Cash |
+| 2026-09-12 | Old Town | Cappuccino | 2 | 3.60 | 7.20 | Card |
+| 2026-09-17 | Old Town | Flat White | 2 | 3.80 | 7.60 | Card |
+| 2026-09-27 | Campus | Cappuccino | 4 | 3.60 | 14.40 | Cash |
+| 2026-09-23 | Riverside | Croissant | 9 | 2.90 | 26.10 | Cash |
+| 2026-09-26 | Riverside | Banana Bread | 2 | 3.20 | 6.40 | Cash |
+| 2026-09-20 | Riverside | Bagel | 2 | 3.40 | 6.80 | Cash |
+| 2026-09-22 |  | Croissant | 10 | 2.90 | 29.00 | Card |
+| 2026-09-13 | Riverside | Iced Tea | 7 | 3.00 | 21.00 | Card |
+| 2026-09-02 | Campus | Espresso | 8 | 2.50 | 20.00 | Cash |

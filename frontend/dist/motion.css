@@ -1,0 +1,76 @@
+:root {
+  --t-short: 150ms;
+  --t-med: 220ms;
+  --t-long: 320ms;
+  --ease-std: cubic-bezier(.4, 0, .2, 1);
+  --ease-dec: cubic-bezier(0, 0, .2, 1);
+  --ease-acc: cubic-bezier(.4, 0, 1, 1);
+}
+html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+.enter-up {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: enterUp var(--t-med) var(--ease-dec) forwards;
+}
+.exit-down {
+  animation: exitDown var(--t-short) var(--ease-acc) forwards;
+}
+.expand { animation: expand var(--t-med) var(--ease-std) both; }
+.collapse { animation: collapse var(--t-med) var(--ease-std) both; }
+.press { transform: scale(.96); transition: transform var(--t-short) var(--ease-std); }
+
+@keyframes enterUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes exitDown {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(8px); }
+}
+@keyframes expand {
+  from { opacity: 0; transform: scaleY(.96); }
+  to { opacity: 1; transform: scaleY(1); }
+}
+@keyframes collapse {
+  from { opacity: 1; transform: scaleY(1); }
+  to { opacity: 0; transform: scaleY(.96); }
+}
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  border-radius: var(--r-xs);
+  background: var(--faint2);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.36), transparent);
+  animation: skeletonSweep 1100ms linear infinite;
+}
+:root:not([data-theme=dark]) .skeleton::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,.85), transparent); }
+@keyframes skeletonSweep {
+  100% { transform: translateX(100%); }
+}
+.skeleton-stack { display: grid; gap: 8px; padding: 6px 2px; }
+.sk-line { height: 10px; }
+
+/* v0.18.1 BrandProgress (progress.js): 3 px rounded bar, shimmer band every 1100 ms. */
+.bprog { position: relative; height: 3px; width: 100%; border-radius: var(--r-pill); background: var(--faint2); overflow: hidden; }
+.bprog > i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--sub), var(--ink)); transition: width .25s linear; overflow: hidden; }
+.bprog > i::after { content: ""; position: absolute; top: 0; bottom: 0; width: 80px; left: -80px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent); animation: bprogShine 1100ms linear infinite; }
+:root[data-theme=dark] .bprog > i { background: linear-gradient(90deg, rgba(255,255,255,.55), #FFFFFF); }
+:root[data-theme=dark] .bprog > i::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,.95), transparent); }
+.bprog.ind > i { width: 100%; opacity: .55; }
+.bprog.bad > i { background: var(--ink); }
+.bprog.bad > i::after { display: none; }
+@keyframes bprogShine { from { left: -80px; } to { left: 100%; } }
+html.reduce-motion .bprog > i::after, html.reduce-motion .skeleton::after { animation: none; display: none; }
+.selfupd .bprog { margin: -4px 0 10px; max-width: 360px; }

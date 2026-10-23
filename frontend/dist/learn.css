@@ -1,0 +1,59 @@
+/* v0.7 Learning marks, toast and Settings › Skills (learn.js). Blaze brand: square edges, mono labels. */
+
+/* Marks under an answer */
+.learnmarks { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.learnmark { display: inline-flex; align-items: center; gap: 7px; max-width: 100%; min-height: 24px; padding: 3px 9px 3px 8px;
+  border: 1px solid var(--hair2); background: var(--raised); color: var(--sub); font-size: 12px; cursor: pointer; text-align: left;
+  transition: border-color .12s, color .12s; animation: lmark-in .22s ease both; }
+.learnmark:hover { border-color: var(--accent); color: var(--ink); }
+.learnmark .sq { width: 6px; height: 6px; flex: none; background: var(--accent); }
+.learnmark.skill .sq { background: var(--ink); outline: 1px solid var(--accent); outline-offset: 1px; }
+.learnmark.forgot .sq { background: var(--weak); }
+.learnmark .label { flex: none; color: var(--accent); font-size: 10px; }
+.learnmark.forgot .label { color: var(--sub); }
+.learnmark .lt { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 52ch; }
+@keyframes lmark-in { from { opacity: 0; transform: translateY(3px); } }
+
+/* Toast (bottom right, above the composer) */
+.ltoast { position: fixed; z-index: 62; right: 16px; bottom: 96px; max-width: min(380px, calc(100vw - 32px)); display: flex; align-items: center; gap: 9px;
+  padding: 9px 12px; background: var(--raised); border: 1px solid var(--hair2); border-left: 2px solid var(--accent); color: var(--ink); font-size: 12.5px;
+  box-shadow: var(--shadow-lg, 0 6px 24px rgba(0,0,0,.12)); opacity: 0; transform: translateY(6px); transition: opacity .2s, transform .2s; pointer-events: none; }
+.ltoast.in { opacity: 1; transform: none; }
+.ltoast .sq { width: 7px; height: 7px; flex: none; background: var(--accent); }
+.ltoast .label { flex: none; color: var(--accent); }
+.ltoast .lt { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Settings › Skills */
+.sksearch { width: 220px; height: 28px; font-size: 12.5px; }
+.skrows .r.skr { grid-template-columns: 30px 1fr auto; align-items: start; }
+.skrows .r.skr .n { padding-top: 2px; }
+.skt { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.skt .t { color: var(--ink); font-size: 12.5px; }
+.skbadge { font: 500 9.5px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; padding: 3px 5px; border: 1px solid var(--hair2); color: var(--sub); }
+.skbadge.bundled { color: var(--accent); border-color: var(--accent-soft); background: var(--accent-soft); }
+.skbadge.edited { color: var(--ink); border-color: var(--hair2); }
+.skbadge.own { color: var(--ink); background: var(--faint2); border-color: transparent; }
+.skbadge.upd { color: var(--on-accent); background: var(--accent); border-color: var(--accent); }
+.skrows .s { color: var(--sub); font-size: 12.5px; margin-top: 3px; overflow-wrap: anywhere; }
+.sktags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.sktag { font: 10.5px/1 var(--mono); color: var(--weak); padding: 2px 4px; background: var(--faint); }
+.skacts { display: flex; align-items: center; gap: 4px; padding-top: 1px; }
+.skacts .toggle { margin-left: 6px; }
+.skr.off .skt .t, .skr.off .s { opacity: .55; }
+.skr.removed .skt .t { text-decoration: line-through; text-decoration-color: var(--weak); }
+.skview { padding: 0 14px 12px 56px; }
+.skview pre { margin: 0; max-height: 320px; overflow: auto; padding: 10px 12px; background: var(--sunk); border: 1px solid var(--hair); font: 11.5px/1.5 var(--mono); color: var(--body); white-space: pre-wrap; }
+@media (max-width: 720px) { .skrows .r.skr { grid-template-columns: 1fr; } .skrows .r.skr .n { display: none; } .sksearch { width: 140px; } }
+@media (prefers-reduced-motion: reduce) { .learnmark { animation: none; } .ltoast { transition: none; } }
+
+/* Learn view: flashcards (v0.15) */
+.lrn-rows { border-top: 1px solid var(--hair); }
+.lrn-deck { display: grid; grid-template-columns: 32px 1fr auto auto; gap: 12px; align-items: center; width: 100%; padding: 12px 0; border: 0; border-bottom: 1px solid var(--hair); background: none; text-align: left; color: var(--ink); cursor: pointer; }
+.lrn-deck:hover { background: var(--faint2); }
+.lrn-deck .t { font: 500 14px/1.3 var(--sans); }
+.lrn-deck .s { color: var(--sub); font-size: 12.5px; }
+.lrn-card { border: 1px solid var(--hair2); background: var(--raised); padding: 28px 28px 22px; margin-top: 14px; min-height: 220px; }
+.lrn-q { font: 600 20px/1.35 var(--display); color: var(--ink); letter-spacing: -.01em; margin: 6px 0 18px; }
+.lrn-a { color: var(--body); font-size: 15px; line-height: 1.55; margin: 6px 0 18px; }
+.lrn-acts { display: flex; gap: 8px; margin-top: 8px; }
+.lrn-acts .label { margin-left: 6px; opacity: .7; }

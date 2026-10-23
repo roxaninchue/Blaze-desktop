@@ -1,0 +1,16 @@
+# Built by CI from the prebuilt binary in this folder.
+pkgname=blaze-desktop
+pkgver=${BLAZE_VERSION:-0.1.0}
+pkgrel=1
+pkgdesc="Blaze assistant for your computer"
+arch=('x86_64')
+url="https://blazeinchue.pages.dev"
+license=('custom')
+depends=('gtk3' 'webkit2gtk-4.1' 'libx11')
+options=('!debug' '!strip')
+source=()
+package() {
+  install -Dm755 "$startdir/blaze-desktop" "$pkgdir/usr/bin/blaze-desktop"
+  install -Dm644 "$startdir/blaze.desktop" "$pkgdir/usr/share/applications/blaze.desktop"
+  install -Dm644 "$startdir/appicon.png" "$pkgdir/usr/share/icons/hicolor/512x512/apps/blaze.png"
+}

@@ -1,0 +1,136 @@
+/* v0.19 Home tab: Blaze Mobile's board in Blaze glass. Cards are glass tiles in category stacks; a
+   collapsed stack shows up to two cards peeking underneath. Two or more columns on a wide window, one when narrow. */
+.homepage { flex: 1; overflow-y: auto; padding: 26px 24px 64px; }
+.hcol { max-width: 1040px; margin: 0 auto; }
+.hhead { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 18px; }
+.hhead .ph { flex: 1; min-width: 0; }
+.hgreet { font: 600 34px/1.12 var(--display); color: var(--ink); letter-spacing: -.03em; margin: 8px 0 6px; }
+.hgreet:empty::before { content: "\00a0"; }
+.hstamp { font-size: 12.5px; }
+.hacts { display: flex; gap: 8px; flex: none; }
+
+/* Quick ask: goes to the one conversation. */
+.hask { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 8px 0 18px; margin-bottom: 22px; border-radius: var(--r-card);
+  border: 1px solid var(--g-hair); background: linear-gradient(180deg, var(--glass-fill-strong), var(--glass-fill)); box-shadow: inset 0 1px 0 var(--glass-rim-top), var(--shadow);
+  backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2); }
+:root:not([data-theme=dark]) .hask { background: linear-gradient(180deg, rgba(255,255,255,.66), rgba(255,255,255,.46)); }
+.hask .hmk { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px rgba(255,201,77,.55); flex: none; }
+.hask .hinput { flex: 1; min-width: 0; height: 40px; border: 0; background: transparent; color: var(--ink); font-size: 14.5px; outline: none; border-radius: var(--r-md); }
+.hask .hinput::placeholder { color: var(--weak); }
+.hask:focus-within { border-color: var(--hair2); }
+
+/* The board. */
+.hboard { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; align-items: start; grid-auto-flow: dense; }
+.hstack { position: relative; display: grid; gap: 12px; min-width: 0; }
+.hstack.stacked:not(.open) { padding-bottom: 16px; }
+.hstack.wide { grid-column: span 2; }
+@media (max-width: 760px) { .hstack.wide { grid-column: auto; } }
+.hpeek { position: absolute; left: 0; right: 0; height: 40px; border-radius: var(--r-card); border: 1px solid var(--g-hair);
+  background: linear-gradient(180deg, var(--glass-fill), rgba(255,255,255,.02)); z-index: 0; pointer-events: none; }
+:root:not([data-theme=dark]) .hpeek { background: rgba(255,255,255,.45); }
+.hpeek.p1 { transform: scaleX(.95); bottom: 6px; opacity: .75; }
+.hpeek.p2 { transform: scaleX(.9); bottom: 0; opacity: .45; }
+.hless { justify-self: center; }
+
+.card.hcard { position: relative; z-index: 1; padding: 12px 10px 14px 16px; min-width: 0;
+  border: 1px solid var(--g-hair); background: linear-gradient(180deg, var(--glass-fill-strong), var(--glass-fill));
+  box-shadow: inset 0 1px 0 var(--glass-rim-top), var(--glass-shadow); backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  transition: transform 150ms cubic-bezier(.4,0,.2,1), border-color 150ms ease; }
+:root:not([data-theme=dark]) .card.hcard { background: linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,.40)); box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 8px 26px rgba(11,11,14,.08); }
+.card.hcard.click { cursor: pointer; }
+.card.hcard.click:hover { border-color: var(--hair2); }
+.hch { display: flex; align-items: center; gap: 10px; min-height: 30px; }
+.htile { width: 28px; height: 28px; display: grid; place-items: center; flex: none; border-radius: 10px; color: var(--ink);
+  border: 1px solid var(--g-hair); background: linear-gradient(160deg, var(--accent-soft), var(--faint)); box-shadow: inset 0 1px 0 var(--glass-rim-top); }
+.htile .i { stroke: var(--ink); }
+.htitle { flex: 1; min-width: 0; font: 600 13.5px var(--sans); color: var(--ink); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.hmenu { color: var(--sub); flex: none; }
+.hbody { padding: 4px 6px 0 0; }
+.hval { font: 600 20px/1.25 var(--display); color: var(--ink); letter-spacing: -.01em; margin-top: 2px; overflow-wrap: anywhere; }
+.hval.big { font-size: 30px; line-height: 1.15; }
+.hsub, .hhl { font-size: 12.5px; color: var(--sub); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.hhl { font-weight: 500; font-size: 14px; color: var(--ink); }
+.hchange { font-size: 12.5px; line-height: 1.45; color: var(--sub); margin-top: 2px; }
+.hchange.up { color: #4F6B57; } .hchange.down { color: #8A5252; }
+:root[data-theme=dark] .hchange.up { color: var(--success); } :root[data-theme=dark] .hchange.down { color: var(--error); }
+.himg { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: 210px; margin: 10px 0 4px; padding: 0; overflow: hidden; border-radius: var(--r-md); border: 1px solid var(--g-hair); background: var(--faint); }
+.himg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hlines { margin-top: 6px; }
+.hline { display: flex; align-items: center; gap: 10px; padding: 7px 6px; margin: 0 -6px; border-radius: var(--r-xs); }
+.hline + .hline { border-top: 1px solid var(--hair); }
+.hline.link { cursor: pointer; } .hline.link:hover { background: var(--faint2); border-radius: var(--r-sm); }
+.hlt { flex: 1; min-width: 0; }
+.hlt .t { color: var(--ink); font-size: 13.5px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.hlt .s { color: var(--sub); font-size: 11.5px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin-top: 1px; }
+.hthumb { width: 68px; height: 48px; object-fit: cover; border-radius: 12px; flex: none; border: 1px solid var(--g-hair); }
+.hnote { font: 500 12.5px var(--sans); color: var(--body); white-space: nowrap; flex: none; }
+.hmore { margin-top: 4px; }
+.herr { font-size: 12.5px; line-height: 1.45; color: var(--sub); margin-top: 6px; }
+.hfoot { font-size: 11px; color: var(--weak); margin-top: 8px; }
+.hactrow { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.hinline { display: flex; gap: 8px; width: 100%; }
+.hinline .field { height: 30px; flex: 1; min-width: 0; }
+.skel { height: 22px; width: 55%; border-radius: var(--r-xs); background: linear-gradient(90deg, var(--faint), var(--faint2), var(--faint)); background-size: 200% 100%; animation: hshim 1.4s linear infinite; margin-top: 6px; }
+.skel.s2 { height: 12px; width: 85%; margin-top: 10px; }
+@keyframes hshim { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .skel { animation: none; } }
+.hempty { grid-column: 1 / -1; border: 1px dashed var(--hair2); border-radius: var(--r-card); }
+
+/* Menus on Home. */
+.hpop .hsizes { display: flex; align-items: center; gap: 6px; padding: 8px 10px; }
+.hpop .hsizes .label { margin-right: auto; }
+.hpop .pbody .hinline { padding: 10px; }
+.hpop .hex { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 10px 10px; }
+.hpop .hex .chip { max-width: none; height: 26px; font: 12px var(--sans); }
+.htoast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 50; padding: 10px 18px; color: var(--ink); font-size: 13px;
+  background: var(--chrome); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: var(--shadow-lg); }
+
+/* v0.19.14 Home: one big chat input under the orb, three starters, recent chats; the card board
+   follows once it has cards. Same glass and theme tokens as the rest of Blaze. */
+.hcol.hhome { max-width: 760px; padding-top: clamp(8px, 5vh, 56px); }
+.hhero { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.hhero .ph { min-width: 0; }
+.hmorb { display: block; flex: none; }
+.hhero .hgreet { font-size: 30px; margin: 4px 0 0; overflow-wrap: anywhere; }
+.hask.hbig { display: block; height: auto; padding: 14px 12px 10px 18px; margin-bottom: 12px; }
+.hask.hbig .hinput { display: block; width: 100%; min-height: 50px; height: auto; resize: none; padding: 2px 0; font: 15.5px/1.5 var(--sans); }
+.hask.hbig.wait { opacity: .75; }
+.hkbar { display: flex; align-items: center; gap: 8px; margin-top: 8px; min-width: 0; }
+.hfolder { max-width: min(300px, 55%); min-width: 0; }
+.hfolder span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hfolder.unset { color: var(--sub); border-style: dashed; }
+.hkeys { font-size: 10px; white-space: nowrap; }
+.hpermslot:empty { display: none; }
+.hstarters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 22px; }
+.hstarter { display: grid; gap: 4px; align-content: start; text-align: left; padding: 11px 14px; min-width: 0; border-radius: var(--r-md); border: 1px solid var(--g-hair);
+  background: linear-gradient(180deg, var(--glass-fill-strong), var(--glass-fill)); box-shadow: inset 0 1px 0 var(--glass-rim-top); color: var(--body); cursor: pointer; transition: border-color .12s, transform .12s; }
+:root:not([data-theme=dark]) .hstarter { background: rgba(255,255,255,.55); }
+.hstarter:hover { border-color: var(--hair2); transform: translateY(-1px); }
+.hstarter:hover .label { color: var(--accent); }
+.hstarter .label { font-size: 9.5px; }
+.hstarter .t { color: var(--ink); font-size: 13px; line-height: 1.38; }
+.hrhead { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.hrhead .kbd { margin-left: 4px; }
+.hrecrows { display: grid; }
+.hrecrow { display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 10px; margin: 0 -10px; min-width: 0; border-radius: var(--r-sm); text-align: left; color: var(--body); cursor: pointer; }
+.hrecrow:hover { background: var(--faint2); }
+.hrecrow .t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--ink); font-size: 13.5px; }
+.hrecrow .d, .hrecrow .w { flex: none; white-space: nowrap; color: var(--weak); font-size: 12px; }
+.hrecrow .w { font-family: var(--mono); font-size: 11px; }
+.hcards { margin-top: 22px; }
+.hcardshead { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.hcardshead .hstamp { font-size: 11.5px; }
+.hcards.none { margin-top: 14px; }
+.hcards.none .hcardshead { display: none; }
+.hcards.none .hboard { display: block; }
+.haddfirst { margin-left: -8px; }
+.haddfirst .weak { color: var(--weak); margin-left: 4px; }
+.hhint { margin-top: 22px; text-align: center; }
+/* The top bar's folder chip repeats the one in the input on Home. */
+body.mode-home #folder { display: none; }
+@media (max-width: 720px) {
+  .hstarters { grid-template-columns: 1fr; gap: 6px; margin-bottom: 18px; }
+  .hstarter { padding: 9px 12px; }
+  .hkeys, .hrecrow .d, .haddfirst .weak { display: none; }
+  .hhero .hgreet { font-size: 25px; }
+}

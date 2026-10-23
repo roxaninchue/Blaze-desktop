@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BlazeRouter</title>
+<link rel="icon" href="logo.svg">
+<script src="theme-init.js"></script>
+<link rel="stylesheet" href="dash.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="app">
+  <aside id="side">
+    <div class="brand"><span class="mark">B</span><span><b>BlazeRouter</b><span class="sub" id="ver"></span></span></div>
+    <nav id="nav"></nav>
+    <div class="sidefoot">
+      <div class="stat"><span class="dot" id="sdot"></span><span id="stext">Connecting…</span></div>
+      <div class="credit">A Go port of <a href="https://github.com/diegosouzapw/OmniRoute" data-ext>OmniRoute</a> · MIT</div>
+    </div>
+  </aside>
+  <main id="main" tabindex="-1">
+    <header id="top">
+      <div class="crumb"><span class="label" id="crumb">Home</span></div>
+      <span class="grow"></span>
+      <span class="endpoint mono" id="endpoint" title="The OpenAI-compatible endpoint"></span>
+      <button class="iconbtn" id="refresh" title="Refresh" aria-label="Refresh"><svg viewBox="0 0 16 16"><path d="M13 8a5 5 0 1 1-1.5-3.6M13 2.5v3h-3"/></svg></button>
+      <button class="iconbtn" id="theme" title="Switch theme" aria-label="Switch theme"></button>
+    </header>
+    <section id="view"></section>
+  </main>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="dash.js"></script>
+</body>
+</html>

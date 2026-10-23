@@ -1,0 +1,14 @@
+/* Private chat (v0.19.1, Blaze Mobile's private chat): ghost button, "Private" pill, leave dialog. */
+.shghost { color: var(--sub); }
+.shghost:hover, body.private .shghost { color: var(--ink); }
+#privPill { display: none; align-items: center; gap: 8px; }
+body.private #privPill { display: inline-flex; }
+body.private #pill { display: none; }
+.privhero { text-align: center; padding: 64px 16px 24px; color: var(--sub); }
+.privhero .ghostbig { width: 56px; height: 56px; margin: 0 auto 14px; color: var(--ink); }
+.privhero .big { font-size: 22px; color: var(--ink); margin-bottom: 6px; }
+.privdlg { position: fixed; inset: 0; z-index: 200; display: grid; place-items: center; background: rgba(0, 0, 0, .45); }
+.privdlg .card { width: min(360px, 90vw); background: var(--paper); border: 1px solid var(--hair); border-radius: var(--r-md, 12px); padding: 20px; box-shadow: 0 12px 40px rgba(0, 0, 0, .35); }
+.privdlg .tt { font-size: 16px; color: var(--ink); margin-bottom: 6px; }
+.privdlg p { color: var(--sub); margin: 0 0 16px; }
+.privdlg .acts { display: flex; justify-content: flex-end; gap: 8px; }

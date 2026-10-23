@@ -1,0 +1,14 @@
+/* Blaze Link · Phone view (link.js). Square hairlines, mono labels, classic palette. */
+.lnk .group { margin-top: 22px; }
+.lnk-rows { border-top: 1px solid var(--hair); }
+.lnk-row { display: grid; grid-template-columns: 32px 1fr auto; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--hair); }
+.lnk-row .t { font: 500 14px/1.3 var(--sans); color: var(--ink); }
+.lnk-row .s { font-size: 12.5px; color: var(--sub); margin-top: 2px; }
+.lnk-step { color: var(--sub); font-size: 13.5px; margin: 10px 0 0; }
+.lnk-step b { color: var(--ink); font-weight: 500; }
+.lnk-qr { display: block; width: 232px; height: 232px; margin: 14px 0 8px; padding: 10px; background: #fff; border: 1px solid var(--hair2); image-rendering: pixelated; }
+.lnk-meta { color: var(--sub); }
+.lnk-acts { display: flex; gap: 8px; margin-top: 12px; }
+.lnk-err { color: var(--accent); font: 500 12px/1.4 var(--mono); text-transform: uppercase; letter-spacing: .06em; margin: 12px 0 0; }
+.lnk-how { margin: 10px 0 0; padding-left: 18px; color: var(--sub); font-size: 13.5px; line-height: 1.55; }
+.lnk-how b { color: var(--ink); font-weight: 500; font-family: var(--mono); font-size: 12px; }

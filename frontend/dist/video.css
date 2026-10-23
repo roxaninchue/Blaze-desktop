@@ -1,0 +1,41 @@
+/* v0.19 Blaze Video (video.js): the player card and its controls. Library tiles, Store and Downloads share music.css. */
+
+.mzvplayer { display: block; }
+.mzvplayer[hidden] { display: none; }
+.mzv { border-radius: var(--r-sheet); padding: 10px; display: flex; flex-direction: column; gap: 10px; }
+.mzv > * { position: relative; z-index: 1; }
+.mzv-stage { position: relative; border-radius: var(--r-card); overflow: hidden; background: #000; aspect-ratio: 16/9; max-height: 62vh; width: 100%; }
+.mzv-stage video { width: 100%; height: 100%; display: block; object-fit: contain; background: #000; }
+.mzv-stage video::cue { background: rgba(0,0,0,.62); color: #fff; font-size: 1.05em; }
+.mzv-ctl { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 14px 10px; background: linear-gradient(180deg, transparent, rgba(0,0,0,.72)); display: flex; flex-direction: column; gap: 8px;
+  opacity: 0; transition: opacity .2s; }
+.mzv-stage.show .mzv-ctl, .mzv-stage.paused .mzv-ctl { opacity: 1; }
+.mzv-row { display: flex; align-items: center; gap: 6px; color: #fff; }
+.mzv-row .tm { font: 12px var(--mono); color: rgba(255,255,255,.88); margin-left: 6px; }
+.mzv-row .mzround { color: #fff; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.16); }
+.mzv-row .mzround.ghost { background: transparent; border-color: transparent; color: rgba(255,255,255,.88); }
+.mzv-row .mzround.ghost:hover { background: rgba(255,255,255,.14); color: #fff; }
+.mzv-row .mzround.pp { width: 38px; height: 38px; background: #fff; color: #111; }
+.mzv-seek { background: linear-gradient(90deg, var(--accent) var(--p, 0%), rgba(255,255,255,.3) var(--p, 0%)); }
+.mzv-skip { position: absolute; right: 18px; bottom: 86px; display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 16px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,.92); color: #111; font-weight: 600; font-size: 13px; box-shadow: 0 6px 18px rgba(0,0,0,.3); }
+.mzv-skip[hidden], .mzv-next[hidden], .mzv-recap[hidden] { display: none; }
+.mzv-next { position: absolute; right: 18px; top: 18px; max-width: 300px; display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; border-radius: var(--r-card);
+  background: rgba(20,20,24,.82); color: #fff; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.mzv-next .label { color: rgba(255,255,255,.7); }
+.mzv-next .t { font-size: 13.5px; font-weight: 600; }
+.mzv-next .a { display: flex; gap: 6px; }
+.mzv-next .btn.ghost { color: rgba(255,255,255,.8); }
+.mzv-recap { position: absolute; left: 18px; top: 18px; width: min(380px, calc(100% - 36px)); max-height: calc(100% - 120px); overflow: auto; padding: 12px 14px; border-radius: var(--r-card);
+  background: rgba(20,20,24,.86); color: #fff; font-size: 13px; line-height: 1.5; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.mzv-recap .label { color: rgba(255,255,255,.7); }
+.mzv-recap .mzsmall { color: rgba(255,255,255,.8); display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.mzv-rh { display: flex; align-items: center; }
+.mzv-rh .mzround.ghost { color: rgba(255,255,255,.8); }
+.mzv-recap .body ul { padding-left: 18px; margin: 6px 0; }
+.mzv-meta { display: flex; align-items: center; gap: 10px; padding: 2px 6px 4px; }
+.mzv-meta .m { flex: 1; min-width: 0; }
+.mzv-meta .t { font-size: 16px; font-weight: 600; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mzv-meta .s { font-size: 12.5px; color: var(--sub); }
+.mzv-stage:fullscreen { max-height: none; border-radius: 0; }
+html.reduce-motion .mzv-ctl { transition: none; }

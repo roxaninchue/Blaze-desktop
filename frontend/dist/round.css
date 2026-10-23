@@ -1,0 +1,154 @@
+/* v0.17.1 "no square UI" (mobile v0.24.8): every surface takes one of the radius tokens.
+   pill: buttons, chips, segmented controls, single-line inputs, switches, tags.
+   xs 8: tiny marks, icon buttons, menu rows. sm 12: sidebar rows, insets, code, callouts.
+   md 16: cards, boxes, lists, popovers, panels. lg 24: dialogs and empty-state panels.
+   Round dots replace the old square marks. ci/nosquare.test.js fails on a zero radius here
+   and checks that each component below still declares one. Loaded after every other sheet. */
+
+/* ---------- base controls ---------- */
+button { border-radius: var(--r-xs); }
+.btn, .btn.sm, .btn.xs, .chip, #route, .pill, .count, .fchip, .modechip, .shchip, .kbd.pillish,
+.seg, .seg button, .tabs, .tabs button, .mseg, .mseg button, .atabs, .atabs button,
+.shexit, .shexit .btn, .picker, .recline, .achip, .skbadge, .sktag, .sp-mode, .mspeed button,
+.mplay, .msearch, .psearch, .contbtn { border-radius: var(--r-pill); }
+.btn.icon, .themebtn, .routerbtn, .plusbtn, .mini, .shavatar, .uav, .sendbtn { border-radius: 50%; }
+.routerbtn { border-radius: var(--r-pill); }
+.kbd { border-radius: 6px; }
+input.field, select.field, .field { border-radius: var(--r-pill); }
+textarea.field, .field.brief, .pcustom { border-radius: var(--r-sm); }
+.toggle input { border-radius: var(--r-pill); }
+.toggle input::after { border-radius: 50%; }
+.choice .radio, .choice .on .radio::after { border-radius: 50%; }
+.sbtweak input[type=color], .sbswap input[type=color] { border-radius: 6px; overflow: hidden; }
+.hbar, .hbar i, .vprog .bar, .vprog .bar i, .cbar .track, .cbar .track span { border-radius: var(--r-pill); }
+.brswitch { border-radius: var(--r-pill); }
+.brswitch::after { border-radius: 50%; }
+.mscrub input, .mscrub input::-webkit-slider-runnable-track { border-radius: var(--r-pill); }
+.mscrub input::-webkit-slider-thumb { border-radius: 50%; }
+
+/* round dots for every status mark */
+.dot, .dotnew, .sq, .rdot, .ag-sq, .sp-mk, .mp-mark, .brdot, .sq2, .shandle .knob,
+.work .sq, .thinking .sq, .chat .sq, .waitline .sq, .toast .sq, .obsteps li .sq, #screenind .sq,
+.ntoast .sq, .nstat .sq, .learnmark .sq, .ltoast .sq, .dirnow .sq, .sl .sq, .recline .rdot,
+.acard .amk, .msg.blaze .who .mk, .step .st::before, .md ul li::before, .obtile .tick, .lg { border-radius: 50%; }
+
+/* ---------- menus, popovers, rows ---------- */
+.pop { border-radius: var(--r-md); overflow: hidden; }
+.menu { border-radius: var(--r-md); padding: 6px; }
+.opt, .mi, .mrow { border-radius: var(--r-xs); }
+.pop .pbody { padding: 6px; }
+.pop .pft .btn { border-radius: var(--r-pill); }
+.models { border-radius: var(--r-sm); margin: 0 6px; border: 1px solid var(--hair); }
+.vcard { border-radius: var(--r-md); }
+.chat, .nav, .snav button, .chat.editing, .mitem, .mt, .arch-row, .sp-line, .lnk-row, .obsteps li { border-radius: var(--r-sm); }
+.chat .x, .aico, .ax, .sbhead .x, .achip .ax, .acard .aico { border-radius: var(--r-xs); }
+.achip img, .achip .ak { border-radius: 50%; }
+.step .rep { border-radius: 6px; }
+
+/* ---------- surfaces ---------- */
+.card, .box, .rows, .kv, .stats, .chart, .acard, .abox, .agcard, .specs, .lrn-rows, .lrn-deck, .lrn-card,
+.lnk-rows, .arch-rows, .modelbox, .choice > button, .suggest button, .ucard, .mini-card, .obcard, .obfacts,
+.signbox, .oneclick, .card.conn, .csetupwrap, .toast, .nstat, #screenind, .brcard, .brframe, .crit, .dirframe,
+.abholder, .mpanel, .mlist, .mtools, .obtile, .dropzone, .selbar, .mem .mfoot, .brview .brbar, .obnav,
+.chartx, .sprow, .ag-body, .ag-report { border-radius: var(--r-md); }
+.rows, .kv, .stats, .abox, .lnk-rows, .arch-rows, .lrn-rows, .modelbox, .specs, .mlist, .obfacts, .csetupwrap { overflow: hidden; }
+.chart { margin-top: 8px; border-top: 1px solid var(--hair2); }
+.chartx { border: 0; background: transparent; }
+.code, .logbox, .callout, .visionwarn, .card .detail, .step .body, .uri, .obkey, .diffbox, .sp-log,
+.skview pre, .qr, .lnk-qr, .sw, .vtile, .pframe, .vthumb, .axp, .ag-q, .ag-q .detail, .card.err pre,
+.mp-meta, .obvis, .drow, .cutrow, .apnote, .tbl, .sframe, .abshape, .md blockquote, .blogo { border-radius: var(--r-sm); }
+.code, .vtile, .tbl { overflow: hidden; }
+.vthumb { border-radius: var(--r-sm) var(--r-sm) 4px 4px; }
+.dempty, #onboard .obcard, .dlg, .modal { border-radius: var(--r-lg); }
+.md code { border-radius: 6px; }
+.chart div { border-radius: 4px 4px 2px 2px; }
+.blogo { overflow: hidden; }
+.apnote { border-left: 0; background: var(--accent-soft); padding: 8px 12px; }
+.apnote.bad { background: var(--faint2); }
+.md blockquote { border-left: 0; background: var(--faint2); padding: 8px 14px; }
+
+/* ---------- settings: sub-nav pills, softer boxes ---------- */
+.snav button.on { box-shadow: none; background: var(--accent-soft); color: var(--ink); }
+.choice > button.on { box-shadow: 0 0 0 1px var(--accent) inset; }
+.callout { border-color: transparent; }
+.steps-wiz span { border-top: 0; padding-top: 10px; position: relative; }
+.steps-wiz span::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; border-radius: var(--r-pill); background: var(--hair2); }
+.steps-wiz span.on::before { background: var(--primary); }
+.steps-wiz span.done::before { background: var(--ink); }
+
+/* ---------- sidebar ---------- */
+.logo { width: 24px; height: 24px; border-radius: 50%; }
+.brand .bname { font-size: 15px; }
+.chat.on { box-shadow: none; background: var(--accent-soft); }
+.chat.on::before { display: none; }
+.nav.on { box-shadow: none; background: var(--accent-soft); }
+#newChat { border-radius: var(--r-pill); height: 34px; padding: 0 12px; }
+#newChat .kbd { border-radius: var(--r-pill); }
+
+/* ---------- top bar: Chat | Projects as a pill toggle ---------- */
+.tabs { padding: 3px; background: var(--sunk); border: 0; }
+.tabs button { height: 28px; padding: 0 16px; }
+.tabs button.on { box-shadow: var(--shadow); }
+.chip:hover { border-color: transparent; background: var(--faint2); }
+.shexit { border-color: var(--hair2); padding: 0 4px 0 12px; }
+.shavatar { border: 0; }
+
+/* ---------- Design / Studio ---------- */
+.dbar .vsep { border-radius: 1px; }
+.dsplit { border-radius: 2px; }
+.pframe { overflow: hidden; }
+.fbox .pframe, .abholder .pframe, .dirframe .pframe { border-radius: var(--r-sm); }
+.sbacts button { border-radius: 4px; }
+.selbar { overflow: hidden; }
+.dstrip { border-radius: var(--r-md) var(--r-md) 4px 4px; }
+.viewing { border-radius: var(--r-sm); margin: 6px 8px 0; border-bottom: 0; }
+.dstage { border-radius: var(--r-md); margin: 8px; }
+/* the BlazeRouter card's key/value list: a soft inset, not a bordered table */
+.brcard .kv { border: 0; border-radius: var(--r-sm); background: var(--sunk); padding: 12px 14px; gap: 8px 12px; }
+.brcard .kv > * { border-top: 0; padding: 0; }
+
+/* v0.18.1 radii: nothing square is left. Loaded last so these win over the older per-view rules.
+   --r-xs 8 marks / inline code · --r-sm 12 rows · --r-md 16 inputs / menus · --r-card 22 cards + composer · pill buttons / chips / avatar. */
+
+/* buttons, chips, pills, avatar: pill */
+button, .btn, .chip, .pill, .tag, .fchip, .themebtn, .routerbtn, .shavatar, #avatar, .plusbtn, #send, .code .bar .copy, .brswitch, .mplay, .mt, .skbadge, .count { border-radius: var(--r-pill); }
+.seg, .mseg, .tabs, .atabs { border-radius: var(--r-pill); overflow: hidden; }
+.seg button, .mseg button, .atabs button, .tabs button { border-radius: var(--r-pill); }
+
+/* rows inside lists and menus */
+.mi, .opt, .chat, .nav, .snav button, .mghead, .mitem, .suggest button, input.rename { border-radius: var(--r-sm); }
+
+/* inputs, menus, popovers */
+input, select, textarea, .field, input.field, select.field, textarea.field, .msearch input { border-radius: var(--r-md); }
+.pop, .menu, #menu, .shmenu, .toast { border-radius: var(--r-md); }
+
+/* cards, the composer, the work card, steps, code blocks */
+.card, .acard, .vcard, .inbox, .code, .work.live, .work.done, .callout, .modal, .sheet, .freshoffer { border-radius: var(--r-card); }
+body.shell .work.live, body.shell .work.done { border-radius: var(--r-card); padding: 6px 12px; }
+.steps { border-radius: var(--r-card); overflow: hidden; }
+.step { border-radius: var(--r-sm); }
+.steps .step { border-radius: 2px; } /* inside the rounded, clipped list (no zero radius: ci/nosquare) */
+pre { border-radius: var(--r-sm); }
+.code { overflow: hidden; }
+.code .bar { border-radius: var(--r-card) var(--r-card) 2px 2px; }
+.code pre { border-radius: 2px 2px calc(var(--r-card) - 1px) calc(var(--r-card) - 1px); }
+
+/* marks, inline code, kbd */
+code, .md code, kbd, .kbd { border-radius: var(--r-xs); }
+pre code, .code code { border-radius: 2px; }
+
+/* status dots and small marks: round */
+.dot, .brdot, .rdot, .dotnew, .sq, .sq2, .ag-sq, .sp-mk, .amk, .mk, .obtile .tick { border-radius: 50%; }
+
+/* checkboxes and toggles */
+.toggle input { border-radius: var(--r-pill); }
+.toggle input::after { border-radius: 50%; }
+.mtoggle .box { border-radius: 5px; }
+.mtoggle input:checked + .box::after { border-radius: 50%; }
+input[type=checkbox] { border-radius: 5px; }
+.toggle input[type=checkbox] { border-radius: var(--r-pill); }
+input[type=radio] { border-radius: 50%; }
+
+/* the composer's focus ring was a hard black line once the light accent became ink */
+.inbox:focus-within { border-color: var(--hair2); }
+:root[data-theme=dark] .inbox:focus-within { border-color: rgba(255,255,255,.28); }

@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://blazeinchue.pages.dev/schemas/postkit-1.json",
+  "title": "Blaze post kit v1",
+  "description": "One post kit for a creator's photo, video still or idea. Client-neutral: Desktop, Mobile, CLI and the gateway post-kit tool all produce exactly this shape. Copy-out only: nothing here is ever posted by Blaze. Length limits count Unicode code points, except X, which counts every URL as 23 characters (t.co).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "language", "hook", "hashtags", "alt_text", "platforms", "crops"],
+  "properties": {
+    "schema": { "const": "blaze.postkit/1" },
+    "language": {
+      "type": "string",
+      "description": "BCP 47 tag of the creator's language (e.g. en, fr, sw, bem). Every text field is written in it.",
+      "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+    },
+    "idea": { "type": "string", "maxLength": 2000, "description": "What the creator typed, kept as given." },
+    "hook": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120,
+      "description": "Opening line shared by all platforms: at most 12 words (whitespace-separated), no hashtags."
+    },
+    "hashtags": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^#[\\p{L}\\p{N}_]{1,50}$" },
+      "description": "Exactly 3 hashtags, each with a leading #, no spaces or punctuation."
+    },
+    "alt_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 125,
+      "description": "Always present. Describes the image (or the idea when there is no image) for screen readers, at most 125 characters."
+    },
+    "platforms": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "description": "Only the platforms the creator chose. caption includes the hook if the platform shows it, and the hashtags if they're used inline.",
+      "properties": {
+        "x":              { "$ref": "#/$defs/post", "description": "X: caption <= 280 (URLs count 23)." },
+        "instagram":      { "$ref": "#/$defs/post", "description": "Instagram: caption <= 2200." },
+        "tiktok":         { "$ref": "#/$defs/post", "description": "TikTok: caption <= 4000." },
+        "linkedin":       { "$ref": "#/$defs/post", "description": "LinkedIn: caption <= 3000." },
+        "threads":        { "$ref": "#/$defs/post", "description": "Threads: caption <= 500." },
+        "youtube_shorts": { "$ref": "#/$defs/post", "description": "YouTube Shorts: title <= 100 (in caption); optional description <= 5000." },
+        "reddit":         { "$ref": "#/$defs/post", "description": "Reddit: title <= 300 (in title); caption is the body <= 40000." }
+      }
+    },
+    "crops": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ratio", "x", "y", "w", "h"],
+        "properties": {
+          "ratio": { "enum": ["1:1", "4:5", "9:16", "16:9"], "description": "1:1, 4:5 and 9:16 are standard; 16:9 is optional." },
+          "x": { "type": "integer", "minimum": 0, "description": "Crop rectangle in source-image pixels; the original is never modified." },
+          "y": { "type": "integer", "minimum": 0 },
+          "w": { "type": "integer", "minimum": 1 },
+          "h": { "type": "integer", "minimum": 1 },
+          "file": { "type": "string", "description": "Exported file name when saved (client side), e.g. sunset-4x5.jpg." }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "focus": {
+          "type": "object", "additionalProperties": false, "required": ["x", "y"],
+          "properties": { "x": { "type": "number", "minimum": 0, "maximum": 1 }, "y": { "type": "number", "minimum": 0, "maximum": 1 } },
+          "description": "Subject centre as fractions of width and height; crops keep it centred where they can."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "post": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["caption"],
+      "properties": {
+        "title": { "type": "string", "maxLength": 300, "description": "Only where the platform has titles (Reddit; YouTube Shorts uses caption as the title)." },
+        "caption": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "maxLength": 5000 }
+      }
+    }
+  },
+  "x-blaze-rules": {
+    "limits": { "x": 280, "instagram": 2200, "tiktok": 4000, "linkedin": 3000, "threads": 500, "youtube_shorts": 100, "reddit_title": 300, "reddit_body": 40000 },
+    "preserve": "Every URL, @handle, email, {placeholder}, {{placeholder}} and `code` in the idea must appear unchanged in each caption that has room; never shorten or rewrite them.",
+    "trim": "Over the limit, cut at a sentence or word boundary before the limit and never inside a preserved token.",
+    "privacy": "Images are processed on the device. A client may send the image only through its normal chat model call; crops never leave the device.",
+    "posting": "Copy-out only. No client posts on the creator's behalf."
+  }
+}

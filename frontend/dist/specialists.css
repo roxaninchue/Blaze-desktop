@@ -1,0 +1,72 @@
+/* Specialists (v0.6.0): one compact strip docked above the composer. Square, quiet,
+   mono uppercase labels; a mini particle orb per row (animates only while it runs). */
+.specs { border: 1px solid var(--hair2); background: var(--raised); margin: 0 0 8px; box-shadow: inset 3px 0 0 var(--accent); }
+.sp-hd { display: flex; align-items: center; gap: 10px; width: 100%; height: 30px; padding: 0 10px 0 14px; text-align: left; border-bottom: 1px solid var(--hair); cursor: pointer; }
+.specs.folded .sp-hd { border-bottom: 0; }
+.sp-hd .sp-sum { color: var(--weak); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.sp-hd .sp-sum.acc { color: var(--accent); }
+.sp-hd .chev { color: var(--weak); flex: none; transition: transform .15s; }
+.specs.folded .sp-hd .chev { transform: rotate(-90deg); }
+.sp-hd:hover .chev, .sp-hd:hover .label.ink { color: var(--accent); }
+.specs.folded .sp-list { display: none; }
+.sp-hd .sp-clear { display: none; flex: none; color: var(--weak); padding: 2px 4px; }
+.specs.all-done .sp-hd .sp-clear { display: inline; }
+.sp-hd .sp-clear:hover, .sp-hd .sp-clear:focus-visible { color: var(--accent); }
+.specs.all-done { box-shadow: inset 3px 0 0 var(--hair2); }
+.sp-list { max-height: min(40vh, 340px); overflow: auto; position: relative; }
+
+.sprow { border-bottom: 1px solid var(--hair); }
+.sprow:last-child { border-bottom: 0; }
+.sp-line { display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 8px 0 14px; cursor: pointer; min-width: 0; }
+.sp-line:hover { background: var(--faint); }
+.sp-mk { width: 10px; height: 10px; flex: none; background: var(--accent); }
+.sp-mk.has-orb { background: none; }
+.sprow.queued .sp-mk:not(.has-orb) { background: none; border: 1.5px solid var(--accent); }
+.sprow.queued .sp-mk .morb, .sprow.cancelled .sp-mk .morb, .sprow.interrupted .sp-mk .morb { opacity: .35; }
+.sprow.done .sp-mk .morb, .sprow.failed .sp-mk .morb { opacity: .7; }
+.sp-name { font: 500 12px/1 var(--mono); color: var(--ink); flex: none; max-width: 150px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.sp-task { flex: 1 1 auto; min-width: 0; font-size: 12.5px; color: var(--sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sp-mode { flex: none; color: var(--weak); font-size: 9.5px; border: 1px solid var(--hair2); padding: 2px 5px; }
+.sp-state { flex: none; color: var(--weak); min-width: 52px; text-align: right; }
+.sprow.running .sp-state, .sprow.waiting .sp-state, .sprow.rv-pending .sp-state { color: var(--accent); }
+.sprow.failed .sp-state { color: var(--ink); }
+.sp-time { flex: none; font-size: 11px; color: var(--weak); font-variant-numeric: tabular-nums; min-width: 34px; text-align: right; }
+.sp-stop { flex: none; }
+.sp-line .chev { flex: none; color: var(--weak); transform: rotate(-90deg); transition: transform .15s; }
+.sprow.open .sp-line .chev { transform: none; }
+
+.sp-now { padding: 0 14px 7px 34px; margin-top: -4px; font-size: 12px; color: var(--sub); min-width: 0; }
+.sprow:not(.live) .sp-now { font: 11px var(--mono); color: var(--weak); }
+.sp-wt { position: relative; display: grid; min-width: 0; }
+.sp-wt .phrase { grid-area: 1 / 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: opacity .25s ease, transform .25s ease; }
+.sp-wt .phrase.in { opacity: 0; transform: translateY(3px); }
+.sp-wt .phrase.out { opacity: 0; transform: translateY(-3px); }
+
+.sp-ask:empty { display: none; }
+.sp-ask { padding: 0 14px 10px 34px; display: grid; gap: 8px; }
+.sp-body { border-top: 1px solid var(--hair); background: var(--paper); }
+.sp-sec { padding: 10px 14px 4px 34px; }
+.sp-sec > .label { margin-bottom: 4px; }
+.sp-plan { font-size: 12.5px; color: var(--body); white-space: pre-wrap; line-height: 1.5; }
+.sp-where { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.sp-where .mono { font-size: 11.5px; color: var(--ink); word-break: break-all; }
+.sp-log { max-height: 220px; overflow: auto; border-top: 1px solid var(--hair); margin-top: 8px; }
+.sp-log .step .head { padding-left: 34px; }
+.sp-log .step pre { padding-left: 57px; }
+.sp-empty { padding: 8px 14px 8px 34px; }
+.sp-report { font-size: 13px; }
+.sp-changes { padding-bottom: 8px; }
+.sp-log .step:first-child { border-top: 0; }
+.sp-file { display: flex; align-items: center; gap: 8px; height: 20px; min-width: 0; }
+.sp-file .mono { font-size: 11.5px; color: var(--ink); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.sp-file .op { width: 16px; text-align: center; flex: none; border: 1px solid var(--hair2); font-size: 9px; line-height: 14px; }
+.sp-file .op.added { color: var(--accent); border-color: var(--accent); }
+.sp-file .op.deleted { color: var(--ink); }
+.sp-acts { display: flex; align-items: center; gap: 8px; padding: 4px 14px 10px 34px; border-bottom: 1px solid var(--hair); }
+.sp-note { font-size: 12px; color: var(--sub); }
+
+/* Narrow (orb) and small windows: drop the mode tag and the task; keep name, state, Stop. */
+body.orb .sp-task, body.orb .sp-mode, body.orb .sp-time { display: none; }
+body.orb .sp-name { flex: 1 1 auto; max-width: none; }
+@media (max-width: 720px) { .sp-mode { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sp-wt .phrase, .sp-hd .chev, .sp-line .chev { transition: none; } }

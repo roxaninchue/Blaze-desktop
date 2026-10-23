@@ -1,0 +1,91 @@
+/* Composer v0.5: attachments, mic, modes. Square edges, no pills, mono uppercase labels. */
+
+/* modes: two square segmented switches */
+.modes { display: flex; align-items: center; gap: 6px; }
+.mseg { display: inline-flex; border: 1px solid var(--hair2); background: var(--raised); flex: none; }
+.mseg button { height: 26px; padding: 0 9px; font: 500 10px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--weak); transition: color .12s, background .12s; }
+.mseg button + button { border-left: 1px solid var(--hair); }
+.mseg button:hover { color: var(--ink); }
+.mseg button.on { background: var(--ink); color: var(--on-ink); }
+.mseg.pilot button.on { background: var(--accent); color: var(--on-accent); }
+.mseg button.flash { animation: mflash .5s ease-out 1; }
+@keyframes mflash { from { box-shadow: inset 0 0 0 2px var(--accent); } to { box-shadow: inset 0 0 0 2px transparent; } }
+.mseg.big button { height: 30px; padding: 0 14px; font-size: 10.5px; }
+
+/* the box shows the mode on its edge */
+.inbox.plan { box-shadow: inset 0 2px 0 var(--ink), var(--shadow); }
+.inbox.pilot { box-shadow: inset 0 2px 0 var(--accent), var(--shadow); }
+.inbox.plan:focus-within, .inbox.pilot:focus-within { box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow); }
+
+/* mic */
+.plusbtn.mic.rec { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.plusbtn.mic.busy { color: var(--accent); border-color: var(--accent); cursor: progress; }
+.plusbtn.mic.busy svg { animation: pulse 1s steps(2) infinite; }
+.recline { display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 2px 0 8px; border: 1px solid var(--accent); background: var(--accent-soft); }
+.recline .rdot { width: 7px; height: 7px; background: var(--accent); animation: pulse 1.2s steps(2) infinite; }
+.recline .rtime { font-variant-numeric: tabular-nums; min-width: 30px; }
+.recline .btn.xs { height: 22px; padding: 0 5px; }
+
+/* attachment chips */
+.achip { display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 4px 0 3px; border: 1px solid var(--hair2); background: var(--raised); max-width: 260px; }
+.achip img { width: 24px; height: 24px; object-fit: cover; flex: none; display: block; background: var(--sunk); }
+.achip .ak { width: 24px; height: 24px; display: grid; place-items: center; background: var(--sunk); color: var(--sub); flex: none; }
+.achip.k-image .ak { color: var(--accent); }
+.achip .an { font: 12px var(--mono); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.achip .am { font: 500 9.5px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--weak); white-space: nowrap; flex: none; }
+.achip .ax { width: 22px; height: 22px; display: grid; place-items: center; color: var(--weak); flex: none; }
+.achip .ax:hover { color: var(--ink); background: var(--faint2); }
+.chips.achips { margin-top: 6px; }
+.chips.achips .achip { padding-right: 8px; }
+
+.visionwarn { display: flex; align-items: center; gap: 8px; margin-top: 6px; padding: 6px 10px; border: 1px solid var(--hair2); background: var(--faint); color: var(--sub); font-size: 12px; }
+.visionwarn svg { color: var(--ink); flex: none; }
+.visionwarn span { flex: 1; min-width: 0; }
+.visionwarn .go { font: 500 10px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); cursor: pointer; white-space: nowrap; }
+
+/* drop target */
+body.dropping #composer .inbox { border-color: var(--accent); border-style: dashed; box-shadow: 0 0 0 3px var(--accent-soft), var(--shadow); }
+body.dropping #composer .cwrap::after { content: "Drop to attach"; position: absolute; left: 0; right: 0; top: -26px; text-align: center; font: 500 10px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+
+/* hint line: keys on the right */
+.hintline .label .hk { margin-left: auto; float: right; display: inline-flex; align-items: center; gap: 5px; }
+.hintline .label .hk .kbd { font-size: 9.5px; padding: 1px 4px; letter-spacing: 0; }
+.hintline .label { flex: 1; }
+
+/* + menu icons */
+.mi .mn svg { vertical-align: -3px; margin-right: 8px; color: var(--sub); }
+.mi.on .mn svg { color: var(--accent); }
+
+/* voice setup card */
+.vcard { position: absolute; left: 0; right: 0; bottom: calc(100% + 8px); background: var(--raised); border: 1px solid var(--accent); box-shadow: inset 3px 0 0 var(--accent), var(--shadow-lg); padding: 12px 14px; z-index: 21; }
+.vcard .vh { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+.vcard .vt { color: var(--body); font-size: 13px; }
+.vcard .vt b { color: var(--ink); font-weight: 500; }
+.vcard .vmodels { margin-top: 10px; }
+.vcard .vmodels button { font: 500 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.vcard .actions { display: flex; gap: 8px; margin-top: 12px; }
+.vprog { margin-top: 10px; }
+.vprog .vpt { margin-top: 6px; }
+
+/* Autopilot notes in the chat */
+.apnote { display: flex; align-items: baseline; gap: 10px; padding: 7px 0 7px 12px; margin: 10px 0; border-left: 2px solid var(--accent); color: var(--sub); font-size: 12.5px; }
+.apnote.bad { border-left-color: var(--ink); }
+
+/* settings */
+.modeset { display: flex; flex-direction: column; gap: 7px; }
+.modeset .mst { display: flex; align-items: center; gap: 8px; }
+.modeset .tt { color: var(--ink); }
+.modeset .td { color: var(--sub); font-size: 12.5px; }
+.modeset .field { max-width: 220px; }
+
+/* narrow (orb): modes collapse to their active label */
+.chatpane.narrow .mseg button:not(.on) { display: none; }
+.chatpane.narrow .mseg button + button { border-left: 0; }
+.chatpane.narrow .hintline .hk { display: none; }
+
+/* v0.7.4: pickers narrow as you type. Matched letters in the accent, underlined; square edges. */
+.menu .mhead { display: flex; align-items: baseline; gap: 8px; padding: 8px 12px 6px; }
+.menu .mhead .mcount { margin-left: auto; font: 10.5px var(--mono); letter-spacing: .06em; color: var(--weak); text-transform: uppercase; }
+.menu mark.hit { background: transparent; color: var(--accent); font-weight: 600; border-radius: 3px; box-shadow: inset 0 -1.5px 0 var(--accent); padding: 0; }
+.menu .md2 mark.hit { font-weight: 500; }
+.menu .mempty { padding: 14px 12px 12px; font: 12.5px var(--mono); color: var(--sub); }

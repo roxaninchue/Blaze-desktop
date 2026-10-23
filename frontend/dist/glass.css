@@ -1,0 +1,79 @@
+:root {
+  /* light: ink-based glass (ink 3-10 % fills, ink 10-15 % hairlines) */
+  --g-tile: rgba(17,17,18,.03);
+  --g-hair: rgba(17,17,18,.10);
+  --glass-fill: rgba(255,255,255,.08);
+  --glass-fill-strong: rgba(255,255,255,.12);
+  --glass-rim-top: rgba(255,255,255,.30);
+  --glass-rim-bottom: rgba(255,255,255,.05);
+  --glass-sheen: rgba(255,255,255,.10);
+  --glass-shadow: 0 8px 28px rgba(11,11,14,.18);
+}
+:root[data-theme=dark] {
+  --g-tile: rgba(255,255,255,.04);
+  --g-hair: rgba(255,255,255,.10);
+  --glass-fill: rgba(255,255,255,.08);
+  --glass-fill-strong: rgba(255,255,255,.12);
+  --glass-rim-top: rgba(255,255,255,.30);
+  --glass-rim-bottom: rgba(255,255,255,.05);
+  --glass-sheen: rgba(255,255,255,.10);
+  --glass-shadow: 0 8px 28px rgba(0,0,0,.35);
+}
+
+.glass-low, .glass, .glass-high {
+  position: relative;
+  border: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), var(--glass-shadow);
+}
+.glass-low {
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.04));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+}
+.glass {
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+}
+.glass-high {
+  background: linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.16), 0 14px 30px rgba(11,11,14,.22);
+}
+.glass-low::before, .glass::before, .glass-high::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,.13), rgba(255,255,255,.03) 46%, rgba(255,255,255,.01) 100%);
+  pointer-events: none;
+}
+.glass-low::after, .glass::after, .glass-high::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 15% 12%, rgba(255,255,255,.18), transparent 34%);
+  pointer-events: none;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-low, .glass, .glass-high {
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.10), var(--glass-shadow);
+  }
+}
+
+#side, #top, #newChat, .chat, .nav, .tabs, .chip, .themebtn, .pop, .menu, .msg.user .bubble, .msg.blaze .bubble, .steps, .step, .field, textarea.field, .btn, .pill, .seg, .toggle input, .code, .callout, .sheet, .modal, .toast, .card, .settings-row {
+  border-radius: var(--r-md);
+}
+
+#side, #top, .tabs, .pop, .menu, .field, .btn, .pill, .seg, .code, .msg.blaze .bubble, .steps, .step, .card, .modal, .sheet, .toast {
+  background: var(--g-tile);
+  border: 1px solid var(--g-hair);
+}
+
+.btn, .chip, .themebtn, .seg button, .nav, .chat, .pill {
+  transition: transform 150ms cubic-bezier(.4,0,.2,1), background 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+.btn:active, .themebtn:active, .nav:active, .chat:active { transform: scale(.96); }
+
+body { background-attachment: fixed; }
